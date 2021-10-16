@@ -1,0 +1,19 @@
+{
+  "case_classification_rules": [
+    {
+      "comment": "Patient: This rule checks whether a given case belongs to register",
+      "rule": {
+        "type": "event",
+        "fields": [
+          {
+            "field": "eventType",
+            "field_value": "Testing This",
+            "creates_case": [
+              "ec_testing"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

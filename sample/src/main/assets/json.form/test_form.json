@@ -1,0 +1,20 @@
+{
+  "count": "1",
+  "metadata": {},
+  "encounter_type": "Testing This",
+  "entity_id": "",
+  "relational_id": "",
+  "step1": {
+    "title": "Test Form",
+    "fields": [
+      {
+        "hint": "Test Field",
+        "type": "edit_text",
+        "openmrs_entity_id": "",
+        "openmrs_entity": "",
+        "openmrs_entity_parent": "",
+        "key": "test_field"
+      }
+    ]
+  }
+}

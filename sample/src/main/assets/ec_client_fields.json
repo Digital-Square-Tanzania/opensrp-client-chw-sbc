@@ -1,0 +1,31 @@
+{
+  "bindobjects": [
+    {
+      "name": "ec_testing",
+      "columns": [
+        {
+          "column_name": "base_entity_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "baseEntityId"
+          }
+        },
+        {
+          "column_name": "unique_id",
+          "type": "Client",
+          "json_mapping": {
+            "field": "identifiers.opensrp_id"
+          }
+        },
+        {
+          "column_name": "first_name",
+          "type": "Client",
+          "json_mapping": {
+            "field": "ops.fieldCode",
+            "concept": "test_field"
+          }
+        }
+      ]
+    }
+  ]
+}
