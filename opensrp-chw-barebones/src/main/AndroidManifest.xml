@@ -1,1 +1,6 @@
-<manifest package="org.smartregister.barebones" />
+<manifest package="org.smartregister.barebones"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+</manifest>
