@@ -1,6 +1,7 @@
 package org.smartregister.chw.barebones.util;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -77,6 +78,7 @@ public class TestUtil {
         }
     }
 
+    @SuppressLint("HardwareIds")
     public static boolean launchDialer(final Activity activity, final BaseTestCallDialogContract.View callView, final String phoneNumber) {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
 
