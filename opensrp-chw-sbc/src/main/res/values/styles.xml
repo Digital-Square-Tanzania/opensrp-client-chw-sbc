@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="MalariaTheme.AppBarOverlay" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="colorBackgroundFloating">@color/white</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:colorBackground">@color/white</item>
+    </style>
+
+    <style name="MalariaTheme.AppBarOverlay.Light" parent="MalariaTheme.AppBarOverlay">
+        <item name="android:textColorPrimary">@color/customAppThemeBlue</item>
+        <item name="android:textColorSecondary">@color/black</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="copy_clipboard_dialog" parent="android:Theme.Holo.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+
+    <style name="ChwTheme.Dialog.FullWidth" parent="android:Theme.Holo.Light.Dialog">
+        <item name="android:windowMinWidthMajor">98%</item>
+        <item name="android:windowMinWidthMinor">98%</item>
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+    <style name="CustomFontTextViewStyle.ListView.Normal.MultipleLines.Extended">
+        <item name="android:textSize">16sp</item>
+        <item name="fontVariant">regular</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:maxLines">100</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+</resources>

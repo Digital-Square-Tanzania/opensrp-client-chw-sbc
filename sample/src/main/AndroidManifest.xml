@@ -24,7 +24,7 @@
         </activity>
         <activity android:name="com.vijay.jsonwizard.activities.JsonWizardFormActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name="org.smartregister.chw.barebones.activity.BaseTestProfileActivity"></activity>
+        <activity android:name="org.smartregister.chw.sbc.activity.BaseSbcProfileActivity"></activity>
     </application>
 
 </manifest>

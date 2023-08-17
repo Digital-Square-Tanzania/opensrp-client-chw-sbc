@@ -1,4 +1,4 @@
 
-# opensrp-client-chw-barebones
-OpenSRP client chw starter files for module library
+# opensrp-client-chw-sbc
+OpenSRP client SBC module library
 

@@ -1,1 +1,1 @@
-include ':sample', ':opensrp-chw-barebones'
+include ':sample', ':opensrp-chw-sbc'

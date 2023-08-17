@@ -4,7 +4,7 @@ android {
     compileSdkVersion androidCompileSdkVersion
 
     defaultConfig {
-        applicationId "org.smartregister.malaria"
+        applicationId "org.smartregister.sbc"
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
         versionCode 1
@@ -97,8 +97,8 @@ dependencies {
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
+    implementation project(':opensrp-chw-sbc')
 
-    implementation project(':opensrp-chw-barebones')
 
     implementation 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
 
