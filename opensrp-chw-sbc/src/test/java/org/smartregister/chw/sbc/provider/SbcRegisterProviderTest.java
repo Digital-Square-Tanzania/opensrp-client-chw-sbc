@@ -1,4 +1,4 @@
-package org.smartregister.provider;
+package org.smartregister.chw.sbc.provider;
 
 import android.app.Activity;
 import android.content.res.Resources;

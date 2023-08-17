@@ -1,4 +1,4 @@
-package org.smartregister.model;
+package org.smartregister.chw.sbc.model;
 
 import org.junit.Assert;
 import org.junit.Before;

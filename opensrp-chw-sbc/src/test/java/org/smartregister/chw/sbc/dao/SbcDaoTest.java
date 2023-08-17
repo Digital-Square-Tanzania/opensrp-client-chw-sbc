@@ -1,4 +1,4 @@
-package org.smartregister.dao;
+package org.smartregister.chw.sbc.dao;
 
 import net.sqlcipher.database.SQLiteDatabase;
 

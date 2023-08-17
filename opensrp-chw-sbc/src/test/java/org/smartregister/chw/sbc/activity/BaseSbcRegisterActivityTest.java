@@ -1,4 +1,4 @@
-package org.smartregister.activity;
+package org.smartregister.chw.sbc.activity;
 
 import android.content.Intent;
 

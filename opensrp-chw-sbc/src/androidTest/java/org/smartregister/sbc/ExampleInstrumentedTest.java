@@ -1,4 +1,4 @@
-package org.smartregister.barebones;
+package org.smartregister.sbc;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

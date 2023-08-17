@@ -1,4 +1,4 @@
-package org.smartregister.model;
+package org.smartregister.chw.sbc.model;
 
 import org.json.JSONObject;
 import org.junit.Assert;

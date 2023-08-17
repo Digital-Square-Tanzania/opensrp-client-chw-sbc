@@ -1,4 +1,4 @@
-package org.smartregister.fragment;
+package org.smartregister.chw.sbc.fragment;
 
 import android.view.View;
 import android.view.ViewGroup;

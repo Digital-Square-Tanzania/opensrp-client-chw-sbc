@@ -1,4 +1,4 @@
-package org.smartregister.presenter;
+package org.smartregister.chw.sbc.presenter;
 
 import org.json.JSONObject;
 import org.junit.Assert;
