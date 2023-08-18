@@ -6,9 +6,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import org.smartregister.chw.sbc.R;
 import org.smartregister.chw.sbc.domain.MemberObject;
 import org.smartregister.chw.sbc.fragment.BaseSbcCallDialogFragment;
-import org.smartregister.barebones.R;
 
 public class BaseSbcFloatingMenu extends LinearLayout implements View.OnClickListener {
     private MemberObject MEMBER_OBJECT;

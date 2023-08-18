@@ -1,10 +1,10 @@
 package org.smartregister.chw.sbc.presenter;
 
 import org.json.JSONObject;
-import org.smartregister.barebones.R;
+import org.smartregister.chw.sbc.R;
+import org.smartregister.chw.sbc.model.BaseSbcVisitAction;
 import org.smartregister.chw.sbc.contract.BaseSbcVisitContract;
 import org.smartregister.chw.sbc.domain.MemberObject;
-import org.smartregister.chw.sbc.model.BaseSbcVisitAction;
 import org.smartregister.chw.sbc.util.JsonFormUtils;
 import org.smartregister.util.FormUtils;
 

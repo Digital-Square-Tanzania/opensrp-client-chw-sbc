@@ -2,8 +2,8 @@ package org.smartregister.chw.sbc.actionhelper;
 
 import android.content.Context;
 
-import org.smartregister.chw.sbc.domain.VisitDetail;
 import org.smartregister.chw.sbc.model.BaseSbcVisitAction;
+import org.smartregister.chw.sbc.domain.VisitDetail;
 
 import java.util.List;
 import java.util.Map;

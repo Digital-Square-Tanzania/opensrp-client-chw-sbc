@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="org.smartregister.barebones">
+    package="org.smartregister.chw.sbc_sample">
 
     <application
-        android:name="org.smartregister.application.SampleApplication"
+        android:name="org.smartregister.chw.sbc_sample.application.SampleApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,7 +13,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:theme">
         <activity
-            android:name="org.smartregister.activity.TestRegisterActivity"
+            android:name=".activity.EntryActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -24,7 +24,8 @@
         </activity>
         <activity android:name="com.vijay.jsonwizard.activities.JsonWizardFormActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name="org.smartregister.chw.sbc.activity.BaseSbcProfileActivity"></activity>
+        <activity android:name=".activity.SbcMemberProfileActivity"/>
+        <activity android:name=".activity.SbcVisitActivity"/>
     </application>
 
 </manifest>

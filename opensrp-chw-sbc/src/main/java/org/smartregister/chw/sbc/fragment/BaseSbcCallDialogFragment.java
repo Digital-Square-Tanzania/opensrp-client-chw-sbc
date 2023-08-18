@@ -14,10 +14,10 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.chw.sbc.contract.BaseSbcCallDialogContract;
+import org.smartregister.chw.sbc.R;
 import org.smartregister.chw.sbc.domain.MemberObject;
 import org.smartregister.chw.sbc.listener.BaseSbcCallWidgetDialogListener;
-import org.smartregister.barebones.R;
+import org.smartregister.chw.sbc.contract.BaseSbcCallDialogContract;
 
 import static android.view.View.GONE;
 import static org.smartregister.util.Utils.getName;

@@ -1,7 +1,5 @@
 package org.smartregister.chw.sbc.util;
 
-import static org.smartregister.chw.sbc.util.JsonFormUtils.HOME_VISIT_GROUP;
-import static org.smartregister.chw.sbc.util.JsonFormUtils.cleanString;
 import static org.smartregister.util.Utils.getAllSharedPreferences;
 
 import android.content.Context;
@@ -24,8 +22,8 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.smartregister.chw.sbc.SbcLibrary;
 import org.smartregister.chw.sbc.domain.Visit;
+import org.smartregister.chw.sbc.SbcLibrary;
 import org.smartregister.chw.sbc.domain.VisitDetail;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
@@ -202,7 +200,7 @@ public class NCUtils {
         visit.setCreatedAt(new Date());
         visit.setUpdatedAt(new Date());
         Map<String, String> eventDetails = event.getDetails();
-        if (eventDetails != null) visit.setVisitGroup(eventDetails.get(HOME_VISIT_GROUP));
+        if (eventDetails != null) visit.setVisitGroup(eventDetails.get(JsonFormUtils.HOME_VISIT_GROUP));
 
         Map<String, List<VisitDetail>> details = new HashMap<>();
         if (event.getObs() != null) {
@@ -324,25 +322,25 @@ public class NCUtils {
         List<String> exceptions = Arrays.asList(default_obs);
 
         Visit visit = new Visit();
-        visit.setVisitId(org.smartregister.chw.sbc.util.JsonFormUtils.generateRandomUUIDString());
+        visit.setVisitId(JsonFormUtils.generateRandomUUIDString());
         visit.setBaseEntityId(event.getBaseEntityId());
         visit.setDate(event.getEventDate().toDate());
         visit.setVisitType(event.getEventType());
         visit.setEventId(event.getEventId());
         visit.setFormSubmissionId(event.getFormSubmissionId());
-        visit.setJson(new JSONObject(org.smartregister.chw.sbc.util.JsonFormUtils.gson.toJson(event)).toString());
+        visit.setJson(new JSONObject(JsonFormUtils.gson.toJson(event)).toString());
         visit.setProcessed(true);
         visit.setCreatedAt(new Date());
         visit.setUpdatedAt(new Date());
         Map<String, String> eventDetails = event.getDetails();
-        if (eventDetails != null) visit.setVisitGroup(eventDetails.get(HOME_VISIT_GROUP));
+        if (eventDetails != null) visit.setVisitGroup(eventDetails.get(JsonFormUtils.HOME_VISIT_GROUP));
 
         Map<String, List<VisitDetail>> details = new HashMap<>();
         if (event.getObs() != null) {
             for (org.smartregister.domain.db.Obs obs : event.getObs()) {
                 if (!exceptions.contains(obs.getFormSubmissionField())) {
                     VisitDetail detail = new VisitDetail();
-                    detail.setVisitDetailsId(org.smartregister.chw.sbc.util.JsonFormUtils.generateRandomUUIDString());
+                    detail.setVisitDetailsId(JsonFormUtils.generateRandomUUIDString());
                     detail.setVisitId(visit.getVisitId());
                     detail.setVisitKey(obs.getFormSubmissionField());
                     detail.setParentCode(obs.getParentCode());
@@ -366,7 +364,7 @@ public class NCUtils {
     }
 
     public static String getDetailsValue(VisitDetail detail, String val) {
-        String clean_val = cleanString(val);
+        String clean_val = JsonFormUtils.cleanString(val);
         if (detail.getVisitKey().contains("date")) {
             return getFormattedDate(getSourceDateFormat(), getSaveDateFormat(), clean_val);
         }

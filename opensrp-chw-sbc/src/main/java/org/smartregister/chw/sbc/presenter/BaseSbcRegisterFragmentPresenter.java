@@ -1,9 +1,9 @@
 package org.smartregister.chw.sbc.presenter;
 
 import org.apache.commons.lang3.StringUtils;
-import org.smartregister.chw.sbc.contract.SbcRegisterFragmentContract;
 import org.smartregister.chw.sbc.util.Constants;
 import org.smartregister.chw.sbc.util.DBConstants;
+import org.smartregister.chw.sbc.contract.SbcRegisterFragmentContract;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.configurableviews.model.ViewConfiguration;

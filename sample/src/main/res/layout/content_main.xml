@@ -5,18 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="org.smartregister.chw.sbc.activity.MainActivity"
+    tools:context="org.smartregister.chw.sbc_sample.activity.EntryActivity"
     tools:showIn="@layout/activity_main">
 
-
-    <FrameLayout
-        android:id="@+id/form_holder"
+    <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:orientation="vertical"
+        android:padding="32dp"
+        tools:context=".activity.EntryActivity">
 
-    </FrameLayout>
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/sbc_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SBC Profile" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/sbc_activity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:text="SBC Activity" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/sbc_home_visit"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SBC Visit" />
+
+
+    </android.support.v7.widget.LinearLayoutCompat>
 </android.support.constraint.ConstraintLayout>

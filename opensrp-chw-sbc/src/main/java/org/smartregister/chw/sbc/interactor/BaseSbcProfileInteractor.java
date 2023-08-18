@@ -3,9 +3,9 @@ package org.smartregister.chw.sbc.interactor;
 import android.support.annotation.VisibleForTesting;
 
 import org.smartregister.chw.sbc.contract.SbcProfileContract;
+import org.smartregister.chw.sbc.util.SbcUtil;
 import org.smartregister.chw.sbc.domain.MemberObject;
 import org.smartregister.chw.sbc.util.AppExecutors;
-import org.smartregister.chw.sbc.util.SbcUtil;
 import org.smartregister.domain.AlertStatus;
 
 import java.util.Date;

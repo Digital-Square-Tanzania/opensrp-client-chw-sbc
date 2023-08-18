@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.view.MenuItem;
 
+import org.smartregister.chw.sbc.R;
 import org.smartregister.listener.BottomNavigationListener;
-import org.smartregister.barebones.R;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
 public class SbcBottomNavigationListener extends BottomNavigationListener {

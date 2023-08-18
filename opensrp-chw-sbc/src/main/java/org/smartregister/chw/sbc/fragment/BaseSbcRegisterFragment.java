@@ -3,14 +3,14 @@ package org.smartregister.chw.sbc.fragment;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.smartregister.chw.sbc.activity.BaseSbcProfileActivity;
-import org.smartregister.chw.sbc.contract.SbcRegisterFragmentContract;
+import org.smartregister.chw.sbc.R;
 import org.smartregister.chw.sbc.model.BaseSbcRegisterFragmentModel;
 import org.smartregister.chw.sbc.presenter.BaseSbcRegisterFragmentPresenter;
+import org.smartregister.chw.sbc.activity.BaseSbcProfileActivity;
+import org.smartregister.chw.sbc.contract.SbcRegisterFragmentContract;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
-import org.smartregister.barebones.R;
 import org.smartregister.chw.sbc.provider.SbcRegisterProvider;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 import org.smartregister.view.customcontrols.FontVariant;

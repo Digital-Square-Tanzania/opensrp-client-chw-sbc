@@ -11,12 +11,12 @@ import android.widget.TextView;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
+import org.smartregister.chw.sbc.R;
 import org.smartregister.chw.sbc.fragment.BaseSbcRegisterFragment;
 import org.smartregister.chw.sbc.util.DBConstants;
 import org.smartregister.chw.sbc.util.SbcUtil;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.cursoradapter.RecyclerViewProvider;
-import org.smartregister.barebones.R;
 import org.smartregister.util.Utils;
 import org.smartregister.view.contract.SmartRegisterClient;
 import org.smartregister.view.contract.SmartRegisterClients;

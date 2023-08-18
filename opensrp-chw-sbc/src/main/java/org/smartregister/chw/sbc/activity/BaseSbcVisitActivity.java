@@ -1,9 +1,5 @@
 package org.smartregister.chw.sbc.activity;
 
-import static org.smartregister.chw.sbc.util.Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID;
-import static org.smartregister.chw.sbc.util.Constants.ACTIVITY_PAYLOAD.EDIT_MODE;
-import static org.smartregister.chw.sbc.util.Constants.ACTIVITY_PAYLOAD.MEMBER_PROFILE_OBJECT;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -25,15 +21,16 @@ import com.vijay.jsonwizard.domain.Form;
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.smartregister.AllConstants;
-import org.smartregister.barebones.R;
+import org.smartregister.chw.sbc.R;
 import org.smartregister.chw.sbc.SbcLibrary;
 import org.smartregister.chw.sbc.adapter.BaseSbcVisitAdapter;
 import org.smartregister.chw.sbc.contract.BaseSbcVisitContract;
-import org.smartregister.chw.sbc.domain.MemberObject;
+import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.sbc.interactor.BaseSbcVisitInteractor;
 import org.smartregister.chw.sbc.model.BaseSbcVisitAction;
 import org.smartregister.chw.sbc.presenter.BaseSbcVisitPresenter;
 import org.smartregister.chw.sbc.util.Constants;
+import org.smartregister.chw.sbc.domain.MemberObject;
 import org.smartregister.view.activity.SecuredActivity;
 
 import java.text.MessageFormat;
@@ -60,8 +57,8 @@ public class BaseSbcVisitActivity extends SecuredActivity implements BaseSbcVisi
 
     public static void startMe(Activity activity, String baseEntityID, Boolean isEditMode) {
         Intent intent = new Intent(activity, BaseSbcVisitActivity.class);
-        intent.putExtra(BASE_ENTITY_ID, baseEntityID);
-        intent.putExtra(EDIT_MODE, isEditMode);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID, baseEntityID);
+        intent.putExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, isEditMode);
         activity.startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
     }
 
@@ -71,9 +68,9 @@ public class BaseSbcVisitActivity extends SecuredActivity implements BaseSbcVisi
         setContentView(R.layout.activity_base_sbc_visit);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            memberObject = (MemberObject) getIntent().getSerializableExtra(MEMBER_PROFILE_OBJECT);
-            isEditMode = getIntent().getBooleanExtra(EDIT_MODE, false);
-            baseEntityID = getIntent().getStringExtra(BASE_ENTITY_ID);
+            isEditMode = getIntent().getBooleanExtra(Constants.ACTIVITY_PAYLOAD.EDIT_MODE, false);
+            baseEntityID = getIntent().getStringExtra(Constants.ACTIVITY_PAYLOAD.BASE_ENTITY_ID);
+            memberObject = getMemberObject(baseEntityID);
         }
 
         confirmCloseTitle = getString(R.string.confirm_form_close);
@@ -88,6 +85,10 @@ public class BaseSbcVisitActivity extends SecuredActivity implements BaseSbcVisi
                 presenter.initialize();
             }
         }
+    }
+
+    protected MemberObject getMemberObject(String baseEntityId) {
+        return SbcDao.getMember(baseEntityId);
     }
 
     public void setUpView() {

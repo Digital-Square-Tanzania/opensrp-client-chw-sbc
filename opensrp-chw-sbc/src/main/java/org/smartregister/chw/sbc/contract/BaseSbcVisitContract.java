@@ -5,8 +5,8 @@ import android.content.Context;
 import com.vijay.jsonwizard.domain.Form;
 
 import org.json.JSONObject;
-import org.smartregister.chw.sbc.domain.MemberObject;
 import org.smartregister.chw.sbc.model.BaseSbcVisitAction;
+import org.smartregister.chw.sbc.domain.MemberObject;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

@@ -4,8 +4,8 @@ import android.util.Log;
 
 import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
+import org.smartregister.chw.sbc.R;
 import org.smartregister.chw.sbc.contract.SbcRegisterContract;
-import org.smartregister.barebones.R;
 
 import java.lang.ref.WeakReference;
 import java.util.List;

@@ -22,11 +22,11 @@ import android.widget.Toast;
 
 import org.json.JSONObject;
 import org.opensrp.api.constants.Gender;
+import org.smartregister.chw.sbc.R;
 import org.smartregister.chw.sbc.SbcLibrary;
 import org.smartregister.chw.sbc.contract.BaseSbcCallDialogContract;
 import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.clientandeventmodel.Event;
-import org.smartregister.barebones.R;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.repository.BaseRepository;
 import org.smartregister.sync.ClientProcessorForJava;

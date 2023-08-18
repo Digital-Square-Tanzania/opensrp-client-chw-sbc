@@ -21,7 +21,7 @@ import android.widget.TextView;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
-import org.smartregister.barebones.R;
+import org.smartregister.chw.sbc.R;
 import org.smartregister.chw.sbc.contract.SbcProfileContract;
 import org.smartregister.chw.sbc.custom_views.BaseSbcFloatingMenu;
 import org.smartregister.chw.sbc.dao.SbcDao;
@@ -136,10 +136,14 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
         textViewUndo.setOnClickListener(this);
 
         imageRenderHelper = new ImageRenderHelper(this);
-        memberObject = SbcDao.getMember(baseEntityId);
+        memberObject = getMemberObject(baseEntityId);
         initializePresenter();
         profilePresenter.fillProfileData(memberObject);
         setupViews();
+    }
+
+    protected MemberObject getMemberObject(String baseEntityId) {
+        return SbcDao.getMember(baseEntityId);
     }
 
     @Override
@@ -185,9 +189,7 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
         if (StringUtils.isNotBlank(memberObject.getPhoneNumber())) {
             baseSbcFloatingMenu = new BaseSbcFloatingMenu(this, memberObject);
             baseSbcFloatingMenu.setGravity(Gravity.BOTTOM | Gravity.RIGHT);
-            LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.MATCH_PARENT);
+            LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             addContentView(baseSbcFloatingMenu, linearLayoutParams);
         }
     }
@@ -201,8 +203,7 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
     @Override
     public void setProfileViewWithData() {
         int age = new Period(new DateTime(memberObject.getAge()), new DateTime()).getYears();
-        textViewName.setText(String.format("%s %s %s, %d", memberObject.getFirstName(),
-                memberObject.getMiddleName(), memberObject.getLastName(), age));
+        textViewName.setText(String.format("%s %s %s, %d", memberObject.getFirstName(), memberObject.getMiddleName(), memberObject.getLastName(), age));
         textViewGender.setText(SbcUtil.getGenderTranslated(this, memberObject.getGender()));
         textViewLocation.setText(memberObject.getAddress());
         textViewUniqueID.setText(memberObject.getUniqueId());
@@ -249,8 +250,7 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
     @Override
     public void refreshUpComingServicesStatus(String service, AlertStatus status, Date date) {
         showProgressBar(false);
-        if (status == AlertStatus.complete)
-            return;
+        if (status == AlertStatus.complete) return;
         view_most_due_overdue_row.setVisibility(View.VISIBLE);
         rlUpcomingServices.setVisibility(View.VISIBLE);
 

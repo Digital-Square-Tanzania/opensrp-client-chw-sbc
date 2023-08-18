@@ -3,9 +3,9 @@ package org.smartregister.chw.sbc.listener;
 
 import android.view.View;
 
+import org.smartregister.chw.sbc.R;
 import org.smartregister.chw.sbc.fragment.BaseSbcCallDialogFragment;
 import org.smartregister.chw.sbc.util.SbcUtil;
-import org.smartregister.barebones.R;
 
 import timber.log.Timber;
 

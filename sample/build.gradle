@@ -3,8 +3,13 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion androidCompileSdkVersion
 
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
+
     defaultConfig {
-        applicationId "org.smartregister.sbc"
+        applicationId "org.smartregister.chw.sbc_sample"
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
         versionCode 1

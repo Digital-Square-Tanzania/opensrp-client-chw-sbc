@@ -13,10 +13,6 @@ import org.smartregister.domain.tag.FormTag;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.util.FormUtils;
 
-import static org.smartregister.chw.sbc.util.Constants.ENCOUNTER_TYPE;
-import static org.smartregister.chw.sbc.util.Constants.STEP_ONE;
-import static org.smartregister.chw.sbc.util.Constants.STEP_TWO;
-
 public class SbcJsonFormUtils extends org.smartregister.util.JsonFormUtils {
     public static final String METADATA = "metadata";
 
@@ -31,8 +27,8 @@ public class SbcJsonFormUtils extends org.smartregister.util.JsonFormUtils {
 
     public static JSONArray malariaFormFields(JSONObject jsonForm) {
         try {
-            JSONArray fieldsOne = fields(jsonForm, STEP_ONE);
-            JSONArray fieldsTwo = fields(jsonForm, STEP_TWO);
+            JSONArray fieldsOne = fields(jsonForm, Constants.STEP_ONE);
+            JSONArray fieldsTwo = fields(jsonForm, Constants.STEP_TWO);
             if (fieldsTwo != null) {
                 for (int i = 0; i < fieldsTwo.length(); i++) {
                     fieldsOne.put(fieldsTwo.get(i));
@@ -81,7 +77,7 @@ public class SbcJsonFormUtils extends org.smartregister.util.JsonFormUtils {
         } else if (Constants.EVENT_TYPE.SBC_FOLLOW_UP_VISIT.equals(encounter_type)) {
             encounter_type = Constants.TABLES.SBC_FOLLOW_UP;
         }
-        return org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId, getString(jsonForm, ENCOUNTER_TYPE), encounter_type);
+        return org.smartregister.util.JsonFormUtils.createEvent(fields, getJSONObject(jsonForm, METADATA), formTag(allSharedPreferences), entityId, getString(jsonForm, Constants.ENCOUNTER_TYPE), encounter_type);
     }
 
     protected static FormTag formTag(AllSharedPreferences allSharedPreferences) {

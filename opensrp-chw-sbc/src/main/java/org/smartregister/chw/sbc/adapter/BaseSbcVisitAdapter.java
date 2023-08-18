@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
-import org.smartregister.barebones.R;
+import org.smartregister.chw.sbc.R;
 import org.smartregister.chw.sbc.contract.BaseSbcVisitContract;
 import org.smartregister.chw.sbc.model.BaseSbcVisitAction;
 

@@ -1,8 +1,8 @@
 package org.smartregister.chw.sbc.model;
 
+import org.smartregister.chw.sbc.util.ConfigHelper;
 import org.smartregister.chw.sbc.SbcLibrary;
 import org.smartregister.chw.sbc.contract.SbcRegisterFragmentContract;
-import org.smartregister.chw.sbc.util.ConfigHelper;
 import org.smartregister.configurableviews.ConfigurableViewsLibrary;
 import org.smartregister.configurableviews.model.RegisterConfiguration;
 import org.smartregister.configurableviews.model.View;

@@ -3,7 +3,6 @@ package org.smartregister.chw.sbc.domain;
 import org.smartregister.util.Utils;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class MemberObject implements Serializable {
 
