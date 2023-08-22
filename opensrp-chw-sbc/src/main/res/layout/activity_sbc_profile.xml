@@ -188,7 +188,7 @@
             android:orientation="vertical">
 
             <include
-                android:id="@+id/record_visit_malaria"
+                android:id="@+id/record_visit_sbc"
                 layout="@layout/view_record_sbc" />
 
             <include layout="@layout/content_sbc_profile" />

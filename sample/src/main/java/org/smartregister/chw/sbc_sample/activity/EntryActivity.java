@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 
 
+import androidx.appcompat.widget.Toolbar;
+
 import org.smartregister.chw.sbc_sample.R;
 import org.smartregister.chw.sbc.contract.BaseSbcVisitContract;
 import org.smartregister.chw.sbc.domain.MemberObject;
@@ -23,6 +25,9 @@ public class EntryActivity extends SecuredActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         findViewById(R.id.sbc_activity).setOnClickListener(this);
         findViewById(R.id.sbc_home_visit).setOnClickListener(this);

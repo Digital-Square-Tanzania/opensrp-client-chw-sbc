@@ -15,11 +15,39 @@
         android:padding="32dp"
         tools:context=".activity.EntryActivity">
 
-        <androidx.appcompat.widget.AppCompatButton
+        <org.smartregister.view.customcontrols.CustomFontTextView
             android:id="@+id/sbc_profile"
+            style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SBC Profile" />
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/record_btn_selector"
+            android:gravity="center_horizontal"
+            android:paddingLeft="30dp"
+            android:paddingTop="10dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="10dp"
+            android:text="SBC Profile"
+            android:textColor="@color/white" />
+
+        <org.smartregister.view.customcontrols.CustomFontTextView
+            android:id="@+id/sbc_home_visit"
+            style="@style/CustomFontTextViewStyle.ListView.Normal.MultipleLines"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/record_btn_selector"
+            android:gravity="center_horizontal"
+            android:paddingLeft="30dp"
+            android:paddingTop="10dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="10dp"
+            android:text="SBC Profile"
+            android:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/sbc_activity"
@@ -27,13 +55,6 @@
             android:layout_height="wrap_content"
             android:visibility="gone"
             android:text="SBC Activity" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/sbc_home_visit"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="SBC Visit" />
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
