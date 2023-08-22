@@ -56,10 +56,10 @@
     "title": "HIV/AIDS Health Education SBC Materials",
     "fields": [
       {
-        "key": "sbc_distributed_hiv_materials",
+        "key": "distributed_any_hiv_materials",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_distributed_hiv_materials",
+        "openmrs_entity_id": "distributed_any_hiv_materials",
         "type": "native_radio",
         "label": "Have you distributed any HIV and AIDS Health Education SBC Materials to the Beneficiary?",
         "text_color": "#000000",
@@ -83,10 +83,10 @@
         }
       },
       {
-        "key": "sbc_hiv_intervention",
+        "key": "health_education_hiv_intervention",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_hiv_intervention",
+        "openmrs_entity_id": "health_education_hiv_intervention",
         "openmrs_data_type": "select one",
         "type": "check_box",
         "label": "Health Education on HIV Intervention",
@@ -200,17 +200,17 @@
           "err": "Required"
         },
         "relevance": {
-          "step1:sbc_distributed_hiv_materials": {
+          "step1:distributed_any_hiv_materials": {
             "type": "string",
             "ex": "equalTo(., \"yes\")"
           }
         }
       },
       {
-        "key": "sbc_hiv_intervention_other",
+        "key": "other_health_education_hiv_intervention",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_hiv_intervention_other",
+        "openmrs_entity_id": "other_health_education_hiv_intervention",
         "type": "edit_text",
         "hint": "Other (Specify)",
         "v_required": {
@@ -218,7 +218,7 @@
           "err": "Required"
         },
         "relevance": {
-          "step1:sbc_hiv_intervention": {
+          "step1:health_education_hiv_intervention": {
             "ex-checkbox": [
               {
                 "or": [

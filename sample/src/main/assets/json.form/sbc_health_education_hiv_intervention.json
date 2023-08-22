@@ -56,10 +56,10 @@
     "title": "SBC Health Education Related to HIV Intervention",
     "fields": [
       {
-        "key": "sbc_hiv_intervention",
+        "key": "health_education_hiv_intervention",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_hiv_intervention",
+        "openmrs_entity_id": "health_education_hiv_intervention",
         "openmrs_data_type": "select one",
         "type": "check_box",
         "label": "Health Education on HIV Intervention",
@@ -174,10 +174,10 @@
         }
       },
       {
-        "key": "sbc_hiv_intervention_other",
+        "key": "other_health_education_hiv_intervention",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_hiv_intervention_other",
+        "openmrs_entity_id": "other_health_education_hiv_intervention",
         "type": "edit_text",
         "hint": "Other (Specify)",
         "v_required": {
@@ -185,7 +185,7 @@
           "err": "Required"
         },
         "relevance": {
-          "step1:sbc_hiv_intervention": {
+          "step1:health_education_hiv_intervention": {
             "ex-checkbox": [
               {
                 "or": [

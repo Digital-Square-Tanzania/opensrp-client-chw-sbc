@@ -37,7 +37,7 @@ public class HivHealthEducationSbcMaterialsActionHelper extends SbcVisitActionHe
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            distributedHivMaterials = JsonFormUtils.getValue(jsonObject, "sbc_distributed_hiv_materials");
+            distributedHivMaterials = JsonFormUtils.getValue(jsonObject, "distributed_any_hiv_materials");
         } catch (Exception e) {
             Timber.e(e);
         }

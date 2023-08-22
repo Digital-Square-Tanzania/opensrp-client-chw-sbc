@@ -56,25 +56,25 @@
     "title": "ART & Condom Education",
     "fields": [
       {
-        "key": "sbc_art_adherence",
+        "key": "received_art_counseling",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_art_adherence",
+        "openmrs_entity_id": "received_art_counseling",
         "type": "native_radio",
         "label": "Have you received ART adherence counseling?",
         "text_color": "#000000",
         "options": [
           {
-            "key": "art_adherence_yes",
+            "key": "counseling_yes",
             "text": "Yes",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "art_adherence_yes"
+            "openmrs_entity_id": "counseling_yes"
           },
           {
-            "key": "art_adherence_no",
+            "key": "counseling_no",
             "text": "No",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "art_adherence_no"
+            "openmrs_entity_id": "counseling_no"
           }
         ],
         "v_required": {
@@ -83,25 +83,25 @@
         }
       },
       {
-        "key": "sbc_condom_use",
+        "key": "received_condom_education",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_condom_use",
+        "openmrs_entity_id": "received_condom_education",
         "type": "native_radio",
         "label": "Have you received education on comprehensive condom use?",
         "text_color": "#000000",
         "options": [
           {
-            "key": "art_condom_yes",
+            "key": "condom_yes",
             "text": "Yes",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "art_condom_yes"
+            "openmrs_entity_id": "condom_yes"
           },
           {
-            "key": "art_condom_no",
+            "key": "condom_no",
             "text": "No",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "art_condom_no"
+            "openmrs_entity_id": "condom_no"
           }
         ],
         "v_required": {

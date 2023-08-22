@@ -56,10 +56,10 @@
     "title": "SBC Activity",
     "fields": [
       {
-        "key": "sbc_activity_type",
+        "key": "activity_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_activity_type",
+        "openmrs_entity_id": "activity_type",
         "openmrs_data_type": "select one",
         "type": "check_box",
         "label": "Type of Community SBC activity provided",
@@ -138,10 +138,10 @@
         }
       },
       {
-        "key": "sbc_activity_others",
+        "key": "other_activity_type",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_activity_others",
+        "openmrs_entity_id": "other_activity_type",
         "type": "edit_text",
         "hint": "Other (Specify)",
         "v_required": {
@@ -149,7 +149,7 @@
           "err": "Required"
         },
         "relevance": {
-          "step1:sbc_activity_type": {
+          "step1:activity_type": {
             "ex-checkbox": [
               {
                 "or": [

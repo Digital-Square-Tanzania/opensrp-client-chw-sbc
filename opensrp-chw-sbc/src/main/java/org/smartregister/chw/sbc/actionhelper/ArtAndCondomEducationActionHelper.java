@@ -37,7 +37,7 @@ public class ArtAndCondomEducationActionHelper extends SbcVisitActionHelper {
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            sbcArtAdherence = JsonFormUtils.getValue(jsonObject, "sbc_art_adherence");
+            sbcArtAdherence = JsonFormUtils.getValue(jsonObject, "received_art_counseling");
         } catch (Exception e) {
             Timber.e(e);
         }

@@ -56,10 +56,10 @@
     "title": "SBC Health Education",
     "fields": [
       {
-        "key": "sbc_health_education",
+        "key": "health_education_received",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_health_education",
+        "openmrs_entity_id": "health_education_received",
         "openmrs_data_type": "select one",
         "type": "check_box",
         "label": "SBC Health Education Session(s) received",
@@ -132,10 +132,10 @@
         }
       },
       {
-        "key": "sbc_activity_other",
+        "key": "other_health_education_received",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_activity_other",
+        "openmrs_entity_id": "other_health_education_received",
         "type": "edit_text",
         "hint": "Other (Specify)",
         "v_required": {
@@ -143,7 +143,7 @@
           "err": "Required"
         },
         "relevance": {
-          "step1:sbc_health_education": {
+          "step1:health_education_received": {
             "ex-checkbox": [
               {
                 "or": [
