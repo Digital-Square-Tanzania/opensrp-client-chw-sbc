@@ -220,7 +220,7 @@ public class BaseSbcVisitActivity extends SecuredActivity implements BaseSbcVisi
 
     @Override
     public void redrawHeader(MemberObject memberObject) {
-        tvTitle.setText(MessageFormat.format("{0}, {1} \u00B7 {2}", memberObject.getFullName(), memberObject.getAge(), getString(R.string.sbc_visit)));
+        tvTitle.setText(MessageFormat.format("{0}, {1} \u00B7 {2}", memberObject.getFullName(), String.valueOf(memberObject.getAge()), getString(R.string.sbc_visit)));
     }
 
     @Override

@@ -78,7 +78,7 @@ public class SbcDao extends AbstractDao {
             memberObject.setAddress(getCursorValue(cursor, "village_town"));
             memberObject.setGender(getCursorValue(cursor, "gender"));
             memberObject.setUniqueId(getCursorValue(cursor, "unique_id", ""));
-            memberObject.setAge(getCursorValue(cursor, "dob"));
+            memberObject.setDob(getCursorValue(cursor, "dob"));
             memberObject.setFamilyBaseEntityId(getCursorValue(cursor, "relational_id", ""));
             memberObject.setRelationalId(getCursorValue(cursor, "relational_id", ""));
             memberObject.setPrimaryCareGiver(getCursorValue(cursor, "primary_caregiver"));

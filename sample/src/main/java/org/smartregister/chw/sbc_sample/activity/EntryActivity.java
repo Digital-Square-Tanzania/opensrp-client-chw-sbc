@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 
 
-import org.smartregister.chw.sbc.activity.BaseSbcVisitActivity;
 import org.smartregister.chw.sbc_sample.R;
 import org.smartregister.chw.sbc.contract.BaseSbcVisitContract;
 import org.smartregister.chw.sbc.domain.MemberObject;
@@ -78,7 +77,7 @@ public class EntryActivity extends SecuredActivity implements View.OnClickListen
         memberObject.setLastName("Juma");
         memberObject.setMiddleName("Ali");
         memberObject.setGender("Female");
-        memberObject.setAge("1982-01-18T03:00:00.000+03:00");
+        memberObject.setDob("1982-01-18T03:00:00.000+03:00");
         memberObject.setUniqueId("3503504");
         memberObject.setBaseEntityId("3503504");
         memberObject.setFamilyBaseEntityId("3503504");
