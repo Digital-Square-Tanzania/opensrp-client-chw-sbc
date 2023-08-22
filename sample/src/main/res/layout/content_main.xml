@@ -29,7 +29,7 @@
             android:paddingTop="10dp"
             android:paddingRight="30dp"
             android:paddingBottom="10dp"
-            android:text="SBC Profile"
+            android:text="@string/sbc_client_profile"
             android:textColor="@color/white" />
 
         <org.smartregister.view.customcontrols.CustomFontTextView
@@ -46,7 +46,7 @@
             android:paddingTop="10dp"
             android:paddingRight="30dp"
             android:paddingBottom="10dp"
-            android:text="SBC Profile"
+            android:text="@string/sbc_follow_up_visit"
             android:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatButton
