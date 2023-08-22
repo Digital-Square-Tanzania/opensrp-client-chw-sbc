@@ -4,15 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.vijay.jsonwizard.activities.JsonFormActivity;
 import com.vijay.jsonwizard.constants.JsonFormConstants;
@@ -26,11 +26,11 @@ import org.smartregister.chw.sbc.SbcLibrary;
 import org.smartregister.chw.sbc.adapter.BaseSbcVisitAdapter;
 import org.smartregister.chw.sbc.contract.BaseSbcVisitContract;
 import org.smartregister.chw.sbc.dao.SbcDao;
+import org.smartregister.chw.sbc.domain.MemberObject;
 import org.smartregister.chw.sbc.interactor.BaseSbcVisitInteractor;
 import org.smartregister.chw.sbc.model.BaseSbcVisitAction;
 import org.smartregister.chw.sbc.presenter.BaseSbcVisitPresenter;
 import org.smartregister.chw.sbc.util.Constants;
-import org.smartregister.chw.sbc.domain.MemberObject;
 import org.smartregister.view.activity.SecuredActivity;
 
 import java.text.MessageFormat;
@@ -179,21 +179,21 @@ public class BaseSbcVisitActivity extends SecuredActivity implements BaseSbcVisi
     }
 
     @Override
-    public void startForm(BaseSbcVisitAction pmtctHomeVisitAction) {
-        current_action = pmtctHomeVisitAction.getTitle();
+    public void startForm(BaseSbcVisitAction sbcVisitAction) {
+        current_action = sbcVisitAction.getTitle();
 
-        if (StringUtils.isNotBlank(pmtctHomeVisitAction.getJsonPayload())) {
+        if (StringUtils.isNotBlank(sbcVisitAction.getJsonPayload())) {
             try {
-                JSONObject jsonObject = new JSONObject(pmtctHomeVisitAction.getJsonPayload());
+                JSONObject jsonObject = new JSONObject(sbcVisitAction.getJsonPayload());
                 startFormActivity(jsonObject);
             } catch (Exception e) {
                 Timber.e(e);
                 String locationId = SbcLibrary.getInstance().context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-                presenter().startForm(pmtctHomeVisitAction.getFormName(), memberObject.getBaseEntityId(), locationId);
+                presenter().startForm(sbcVisitAction.getFormName(), memberObject.getBaseEntityId(), locationId);
             }
         } else {
             String locationId = SbcLibrary.getInstance().context().allSharedPreferences().getPreference(AllConstants.CURRENT_LOCATION_ID);
-            presenter().startForm(pmtctHomeVisitAction.getFormName(), memberObject.getBaseEntityId(), locationId);
+            presenter().startForm(sbcVisitAction.getFormName(), memberObject.getBaseEntityId(), locationId);
         }
     }
 
@@ -301,9 +301,9 @@ public class BaseSbcVisitActivity extends SecuredActivity implements BaseSbcVisi
             if (resultCode == Activity.RESULT_OK) {
                 try {
                     String jsonString = data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON);
-                    BaseSbcVisitAction pmtctHomeVisitAction = actionList.get(current_action);
-                    if (pmtctHomeVisitAction != null) {
-                        pmtctHomeVisitAction.setJsonPayload(jsonString);
+                    BaseSbcVisitAction sbcVisitAction = actionList.get(current_action);
+                    if (sbcVisitAction != null) {
+                        sbcVisitAction.setJsonPayload(jsonString);
                     }
                 } catch (Exception e) {
                     Timber.e(e);

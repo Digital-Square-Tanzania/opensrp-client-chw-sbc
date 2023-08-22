@@ -6,10 +6,6 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
 
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
@@ -51,25 +52,19 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
     protected TextView textViewLocation;
     protected TextView textViewUniqueID;
     protected TextView textViewRecordSbc;
-    protected TextView textViewRecordAnc;
-    protected TextView textview_positive_date;
-    protected View view_last_visit_row;
     protected View view_most_due_overdue_row;
     protected View view_family_row;
     protected RelativeLayout rlLastVisit;
-    protected RelativeLayout rlUpcomingServices;
     protected RelativeLayout rlFamilyServicesDue;
     protected RelativeLayout visitStatus;
     protected ImageView imageViewCross;
     protected TextView textViewUndo;
-    private TextView tvUpComingServices;
     private TextView tvFamilyStatus;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM", Locale.getDefault());
     protected TextView textViewVisitDone;
     protected RelativeLayout visitDone;
     protected LinearLayout recordVisits;
     protected TextView textViewVisitDoneEdit;
-    protected TextView textViewRecordAncNotDone;
 
     private ProgressBar progressBar;
     protected BaseSbcFloatingMenu baseSbcFloatingMenu;
@@ -105,34 +100,25 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
         textViewGender = findViewById(R.id.textview_gender);
         textViewLocation = findViewById(R.id.textview_address);
         textViewUniqueID = findViewById(R.id.textview_id);
-        view_last_visit_row = findViewById(R.id.view_last_visit_row);
         view_most_due_overdue_row = findViewById(R.id.view_most_due_overdue_row);
         view_family_row = findViewById(R.id.view_family_row);
         imageViewCross = findViewById(R.id.tick_image);
-        tvUpComingServices = findViewById(R.id.textview_name_due);
         tvFamilyStatus = findViewById(R.id.textview_family_has);
         rlLastVisit = findViewById(R.id.rlLastVisit);
-        rlUpcomingServices = findViewById(R.id.rlUpcomingServices);
         rlFamilyServicesDue = findViewById(R.id.rlFamilyServicesDue);
         textViewVisitDone = findViewById(R.id.textview_visit_done);
         visitStatus = findViewById(R.id.record_visit_not_done_bar);
         visitDone = findViewById(R.id.visit_done_bar);
         recordVisits = findViewById(R.id.record_visits);
         progressBar = findViewById(R.id.progress_bar);
-        textViewRecordAncNotDone = findViewById(R.id.textview_record_anc_not_done);
         textViewVisitDoneEdit = findViewById(R.id.textview_edit);
         textViewRecordSbc = findViewById(R.id.textview_record_sbc);
-        textViewRecordAnc = findViewById(R.id.textview_record_anc);
         textViewUndo = findViewById(R.id.textview_undo);
         imageView = findViewById(R.id.imageview_profile);
-
-        textViewRecordAncNotDone.setOnClickListener(this);
         textViewVisitDoneEdit.setOnClickListener(this);
         rlLastVisit.setOnClickListener(this);
-        rlUpcomingServices.setOnClickListener(this);
         rlFamilyServicesDue.setOnClickListener(this);
         textViewRecordSbc.setOnClickListener(this);
-        textViewRecordAnc.setOnClickListener(this);
         textViewUndo.setOnClickListener(this);
 
         imageRenderHelper = new ImageRenderHelper(this);
@@ -149,18 +135,6 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
     @Override
     protected void setupViews() {
         initializeFloatingMenu();
-        recordAnc(memberObject);
-        recordPnc(memberObject);
-    }
-
-    @Override
-    public void recordAnc(MemberObject memberObject) {
-        //implement
-    }
-
-    @Override
-    public void recordPnc(MemberObject memberObject) {
-        //implement
     }
 
     @Override
@@ -170,10 +144,10 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
             onBackPressed();
         } else if (id == R.id.rlLastVisit) {
             this.openMedicalHistory();
-        } else if (id == R.id.rlUpcomingServices) {
-            this.openUpcomingService();
         } else if (id == R.id.rlFamilyServicesDue) {
             this.openFamilyDueServices();
+        } else if (id == R.id.textview_record_sbc) {
+            this.recordSbc(memberObject);
         }
     }
 
@@ -248,20 +222,6 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
     }
 
     @Override
-    public void refreshUpComingServicesStatus(String service, AlertStatus status, Date date) {
-        showProgressBar(false);
-        if (status == AlertStatus.complete) return;
-        view_most_due_overdue_row.setVisibility(View.VISIBLE);
-        rlUpcomingServices.setVisibility(View.VISIBLE);
-
-        if (status == AlertStatus.upcoming) {
-            tvUpComingServices.setText(SbcUtil.fromHtml(getString(R.string.vaccine_service_upcoming, service, dateFormat.format(date))));
-        } else {
-            tvUpComingServices.setText(SbcUtil.fromHtml(getString(R.string.vaccine_service_due, service, dateFormat.format(date))));
-        }
-    }
-
-    @Override
     public void refreshFamilyStatus(AlertStatus status) {
         showProgressBar(false);
         if (status == AlertStatus.complete) {
@@ -285,12 +245,12 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
     }
 
     @Override
-    public void openUpcomingService() {
+    public void openFamilyDueServices() {
         //implement
     }
 
     @Override
-    public void openFamilyDueServices() {
+    public void recordSbc(MemberObject memberObject) {
         //implement
     }
 

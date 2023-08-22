@@ -68,7 +68,6 @@ public class BaseSbcVisitPresenter implements BaseSbcVisitContract.Presenter, Ba
     public void onMemberDetailsReloaded(MemberObject memberObject) {
         if (view.get() != null) {
             this.memberObject = memberObject;
-
             view.get().displayProgressBar(false);
             view.get().onMemberDetailsReloaded(memberObject);
         }

@@ -1,6 +1,6 @@
 package org.smartregister.chw.sbc.interactor;
 
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 
 import org.smartregister.chw.sbc.contract.SbcRegisterContract;
 import org.smartregister.chw.sbc.util.SbcUtil;

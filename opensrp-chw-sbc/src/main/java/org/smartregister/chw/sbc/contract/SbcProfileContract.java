@@ -15,15 +15,10 @@ public interface SbcProfileContract {
 
         void openMedicalHistory();
 
-        void openUpcomingService();
-
         void openFamilyDueServices();
+        void recordSbc(MemberObject memberObject);
 
         void showProgressBar(boolean status);
-
-        void recordAnc(MemberObject memberObject);
-
-        void recordPnc(MemberObject memberObject);
 
         void hideView();
     }
@@ -53,8 +48,6 @@ public interface SbcProfileContract {
     interface InteractorCallBack {
 
         void refreshMedicalHistory(boolean hasHistory);
-
-        void refreshUpComingServicesStatus(String service, AlertStatus status, Date date);
 
         void refreshFamilyStatus(AlertStatus status);
 

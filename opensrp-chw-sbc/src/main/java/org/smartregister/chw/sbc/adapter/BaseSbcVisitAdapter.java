@@ -1,7 +1,7 @@
 package org.smartregister.chw.sbc.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,12 +64,12 @@ public class BaseSbcVisitAdapter extends RecyclerView.Adapter<BaseSbcVisitAdapte
     @Override
     public void onBindViewHolder(@NotNull MyViewHolder holder, int position) {
 
-        BaseSbcVisitAction pmtctHomeVisitAction = getByPosition(position);
-        if (pmtctHomeVisitAction == null)
+        BaseSbcVisitAction sbcVisitAction = getByPosition(position);
+        if (sbcVisitAction == null)
 
             return;
 
-        if (!pmtctHomeVisitAction.isEnabled()) {
+        if (!sbcVisitAction.isEnabled()) {
             holder.titleText.setTextColor(context.getResources().getColor(R.color.grey));
             holder.descriptionText.setTextColor(context.getResources().getColor(R.color.grey));
         } else {
@@ -77,19 +77,19 @@ public class BaseSbcVisitAdapter extends RecyclerView.Adapter<BaseSbcVisitAdapte
         }
 
         String title = MessageFormat.format("{0}<i>{1}</i>",
-                pmtctHomeVisitAction.getTitle(),
-                pmtctHomeVisitAction.isOptional() ? " - " + context.getString(R.string.optional) : ""
+                sbcVisitAction.getTitle(),
+                sbcVisitAction.isOptional() ? " - " + context.getString(R.string.optional) : ""
         );
         holder.titleText.setText(Html.fromHtml(title));
-        if (StringUtils.isNotBlank(pmtctHomeVisitAction.getSubTitle())) {
+        if (StringUtils.isNotBlank(sbcVisitAction.getSubTitle())) {
 
-            if (pmtctHomeVisitAction.isEnabled()) {
+            if (sbcVisitAction.isEnabled()) {
                 holder.descriptionText.setVisibility(View.VISIBLE);
                 holder.invalidText.setVisibility(View.GONE);
-                holder.descriptionText.setText(pmtctHomeVisitAction.getSubTitle());
+                holder.descriptionText.setText(sbcVisitAction.getSubTitle());
 
-                boolean isOverdue = pmtctHomeVisitAction.getScheduleStatus() == BaseSbcVisitAction.ScheduleStatus.OVERDUE &&
-                        pmtctHomeVisitAction.isEnabled();
+                boolean isOverdue = sbcVisitAction.getScheduleStatus() == BaseSbcVisitAction.ScheduleStatus.OVERDUE &&
+                        sbcVisitAction.isEnabled();
 
                 holder.descriptionText.setTextColor(
                         isOverdue ? context.getResources().getColor(R.color.alert_urgent_red) :
@@ -99,13 +99,13 @@ public class BaseSbcVisitAdapter extends RecyclerView.Adapter<BaseSbcVisitAdapte
             } else {
                 holder.descriptionText.setVisibility(View.GONE);
                 holder.invalidText.setVisibility(View.VISIBLE);
-                holder.invalidText.setText(Html.fromHtml("<i>" + pmtctHomeVisitAction.getDisabledMessage() + "</i>"));
+                holder.invalidText.setText(Html.fromHtml("<i>" + sbcVisitAction.getDisabledMessage() + "</i>"));
             }
         } else {
             holder.descriptionText.setVisibility(View.GONE);
         }
 
-        int color_res = getCircleColor(pmtctHomeVisitAction);
+        int color_res = getCircleColor(sbcVisitAction);
 
         holder.circleImageView.setCircleBackgroundColor(context.getResources().getColor(color_res));
         holder.circleImageView.setImageResource(R.drawable.ic_checked);
@@ -117,17 +117,17 @@ public class BaseSbcVisitAdapter extends RecyclerView.Adapter<BaseSbcVisitAdapte
             holder.circleImageView.setBorderColor(context.getResources().getColor(color_res));
         }
 
-        bindClickListener(holder.getView(), pmtctHomeVisitAction);
+        bindClickListener(holder.getView(), sbcVisitAction);
     }
 
-    private int getCircleColor(BaseSbcVisitAction pmtctHomeVisitAction) {
+    private int getCircleColor(BaseSbcVisitAction sbcVisitAction) {
 
         int color_res;
-        boolean valid = pmtctHomeVisitAction.isValid() && pmtctHomeVisitAction.isEnabled();
+        boolean valid = sbcVisitAction.isValid() && sbcVisitAction.isEnabled();
         if (!valid)
             return R.color.transparent_gray;
 
-        switch (pmtctHomeVisitAction.getActionStatus()) {
+        switch (sbcVisitAction.getActionStatus()) {
             case PENDING:
                 color_res = R.color.transparent_gray;
                 break;

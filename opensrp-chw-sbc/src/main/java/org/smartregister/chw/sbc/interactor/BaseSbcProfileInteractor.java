@@ -1,6 +1,6 @@
 package org.smartregister.chw.sbc.interactor;
 
-import android.support.annotation.VisibleForTesting;
+import androidx.annotation.VisibleForTesting;
 
 import org.smartregister.chw.sbc.contract.SbcProfileContract;
 import org.smartregister.chw.sbc.util.SbcUtil;
@@ -27,7 +27,6 @@ public class BaseSbcProfileInteractor implements SbcProfileContract.Interactor {
         Runnable runnable = () -> appExecutors.mainThread().execute(() -> {
             callback.refreshFamilyStatus(AlertStatus.normal);
             callback.refreshMedicalHistory(true);
-            callback.refreshUpComingServicesStatus("Malaria Visit", AlertStatus.normal, new Date());
         });
         appExecutors.diskIO().execute(runnable);
     }

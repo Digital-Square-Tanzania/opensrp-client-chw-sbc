@@ -47,7 +47,7 @@ public class EntryActivity extends SecuredActivity implements View.OnClickListen
                 startActivity(new Intent(this, SbcRegisterActivity.class));
                 break;
             case R.id.sbc_home_visit:
-                BaseSbcVisitActivity.startMe(this, "12345", false);
+                SbcVisitActivity.startMe(this, "12345", false);
                 break;
             case R.id.sbc_profile:
                 SbcMemberProfileActivity.startMe(this, "12345");

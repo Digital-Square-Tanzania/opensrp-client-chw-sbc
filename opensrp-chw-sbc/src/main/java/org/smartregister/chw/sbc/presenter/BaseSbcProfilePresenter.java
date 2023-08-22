@@ -1,7 +1,7 @@
 package org.smartregister.chw.sbc.presenter;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import org.smartregister.chw.sbc.contract.SbcProfileContract;
 import org.smartregister.chw.sbc.domain.MemberObject;

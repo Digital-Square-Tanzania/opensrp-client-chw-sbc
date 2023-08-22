@@ -16,8 +16,8 @@
     <string name="return_to_previous_page">Return all SBC Clients</string>
     <string name="last_visit_40_days_ago">Last visit %1$s ago</string>
     <string name="view_medical_history">View medical history</string>
+    <string name="medical_history">Medical history</string>
     <string name="call_no_number_provided">(no number provided)</string>
-    <string name="view_upcoming_services">View upcoming services</string>
     <string name="family_has_nothing_due">Family has nothing due</string>
     <string name="go_to_family_s_profile">Go to family\'s profile</string>
     <string name="family_has_services_due">Family has services due</string>
@@ -53,6 +53,13 @@
     <string name="error_unable_save_home_visit">unable to save home visit</string>
     <string name="optional">optional</string>
     <string name="sbc_visit">sbc visit</string>
+    <string name="sbc_visit_action_title_sbc_activity">SBC Activity</string>
+    <string name="sbc_visit_action_title_services_survey">Services Survey</string>
+    <string name="sbc_visit_action_title_health_education">Health Education</string>
+    <string name="sbc_visit_action_title_health_education_on_hiv_interventions">Health Education on HIV Interventions</string>
+    <string name="sbc_visit_action_title_health_education_sbc_materials">HIV/AIDS Health Education SBC Materials</string>
+    <string name="sbc_visit_action_title_art_and_condom_education">ART &amp; Condom Education</string>
+    <string name="sbc_visit_action_title_comments">Comments</string>
 
 
 </resources>

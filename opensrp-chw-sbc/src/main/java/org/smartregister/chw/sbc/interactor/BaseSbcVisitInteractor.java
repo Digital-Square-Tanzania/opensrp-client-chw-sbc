@@ -2,25 +2,35 @@ package org.smartregister.chw.sbc.interactor;
 
 
 import android.content.Context;
-import android.support.annotation.VisibleForTesting;
+
+import androidx.annotation.VisibleForTesting;
 
 import com.google.gson.Gson;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
-import org.smartregister.chw.sbc.domain.Visit;
-import org.smartregister.chw.sbc.model.BaseSbcVisitAction;
-import org.smartregister.chw.sbc.util.AppExecutors;
-import org.smartregister.chw.sbc.util.JsonFormUtils;
-import org.smartregister.chw.sbc.util.VisitUtils;
+import org.smartregister.chw.sbc.R;
 import org.smartregister.chw.sbc.SbcLibrary;
+import org.smartregister.chw.sbc.actionhelper.ArtAndCondomEducationActionHelper;
+import org.smartregister.chw.sbc.actionhelper.CommentsActionHelper;
+import org.smartregister.chw.sbc.actionhelper.HealthEducationActionHelper;
+import org.smartregister.chw.sbc.actionhelper.HealthEducationOnHivInterventionsActionHelper;
+import org.smartregister.chw.sbc.actionhelper.HivHealthEducationSbcMaterialsActionHelper;
+import org.smartregister.chw.sbc.actionhelper.SbcActivityActionHelper;
+import org.smartregister.chw.sbc.actionhelper.SbcVisitActionHelper;
+import org.smartregister.chw.sbc.actionhelper.ServicesSurveyActionHelper;
 import org.smartregister.chw.sbc.contract.BaseSbcVisitContract;
 import org.smartregister.chw.sbc.domain.MemberObject;
+import org.smartregister.chw.sbc.domain.Visit;
 import org.smartregister.chw.sbc.domain.VisitDetail;
+import org.smartregister.chw.sbc.model.BaseSbcVisitAction;
 import org.smartregister.chw.sbc.repository.VisitRepository;
+import org.smartregister.chw.sbc.util.AppExecutors;
 import org.smartregister.chw.sbc.util.Constants;
+import org.smartregister.chw.sbc.util.JsonFormUtils;
 import org.smartregister.chw.sbc.util.NCUtils;
+import org.smartregister.chw.sbc.util.VisitUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
 import org.smartregister.clientandeventmodel.User;
@@ -43,15 +53,23 @@ import timber.log.Timber;
 public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
 
     protected AppExecutors appExecutors;
-    private final SbcLibrary SbcLibrary;
+
+    private final SbcLibrary sbcLibrary;
+
     private ECSyncHelper syncHelper;
+
+    private Context mContext;
+
+    private LinkedHashMap<String, BaseSbcVisitAction> actionList;
+
+    private Map<String, List<VisitDetail>> details = null;
 
     @VisibleForTesting
     public BaseSbcVisitInteractor(AppExecutors appExecutors, SbcLibrary SbcLibrary, ECSyncHelper syncHelper) {
         this.appExecutors = appExecutors;
-        this.SbcLibrary = SbcLibrary;
+        this.sbcLibrary = SbcLibrary;
         this.syncHelper = syncHelper;
-
+        this.actionList = new LinkedHashMap<>();
     }
 
     public BaseSbcVisitInteractor() {
@@ -87,17 +105,24 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
 
     @Override
     public void calculateActions(final BaseSbcVisitContract.View view, MemberObject memberObject, final BaseSbcVisitContract.InteractorCallBack callBack) {
-        final Runnable runnable = () -> {
-            final LinkedHashMap<String, BaseSbcVisitAction> actionList = new LinkedHashMap<>();
+        mContext = view.getContext();
+        if (view.getEditMode()) {
+            Visit lastVisit = sbcLibrary.visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.SBC_FOLLOW_UP_VISIT);
 
+            if (lastVisit != null) {
+                details = VisitUtils.getVisitGroups(sbcLibrary.visitDetailsRepository().getVisits(lastVisit.getVisitId()));
+            }
+        }
+
+        final Runnable runnable = () -> {
             try {
-                BaseSbcVisitAction ba =
-                        new BaseSbcVisitAction.Builder(view.getContext(), "Sample Action")
-                                .withSubtitle("")
-                                .withOptional(false)
-                                .withFormName("anc")
-                                .build();
-                actionList.put("Sample Action", ba);
+                evaluateSbcActivity(memberObject, details);
+                evaluateServicesSurvey(memberObject, details);
+                evaluateHealthEducation(memberObject, details);
+                evaluateHealthEducationOnHivInterventions(memberObject, details);
+                evaluateHealthEducationSbcMaterials(memberObject, details);
+                evaluateArtAndCondomEducation(memberObject, details);
+                evaluateComments(memberObject, details);
 
             } catch (BaseSbcVisitAction.ValidationException e) {
                 Timber.e(e);
@@ -107,6 +132,80 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
         };
 
         appExecutors.diskIO().execute(runnable);
+    }
+
+    protected void evaluateSbcActivity(MemberObject memberObject, Map<String, List<VisitDetail>> details) throws BaseSbcVisitAction.ValidationException {
+        SbcVisitActionHelper actionHelper = new SbcActivityActionHelper(mContext, memberObject);
+
+        String actionName = mContext.getString(R.string.sbc_visit_action_title_sbc_activity);
+
+        BaseSbcVisitAction action = getBuilder(actionName).withOptional(false).withDetails(details).withHelper(actionHelper).withFormName(Constants.FORMS.SBC_ACTIVITY).build();
+
+        actionList.put(actionName, action);
+    }
+
+    protected void evaluateServicesSurvey(MemberObject memberObject, Map<String, List<VisitDetail>> details) throws BaseSbcVisitAction.ValidationException {
+        SbcVisitActionHelper actionHelper = new ServicesSurveyActionHelper(mContext, memberObject);
+
+        String actionName = mContext.getString(R.string.sbc_visit_action_title_services_survey);
+
+        BaseSbcVisitAction action = getBuilder(actionName).withOptional(false).withDetails(details).withHelper(actionHelper).withFormName(Constants.FORMS.SBC_SERVICE_SURVEY).build();
+
+        actionList.put(actionName, action);
+    }
+
+    protected void evaluateHealthEducation(MemberObject memberObject, Map<String, List<VisitDetail>> details) throws BaseSbcVisitAction.ValidationException {
+        SbcVisitActionHelper actionHelper = new HealthEducationActionHelper(mContext, memberObject);
+
+        String actionName = mContext.getString(R.string.sbc_visit_action_title_health_education);
+
+        BaseSbcVisitAction action = getBuilder(actionName).withOptional(false).withDetails(details).withHelper(actionHelper).withFormName(Constants.FORMS.SBC_HEALTH_EDUCATION).build();
+
+        actionList.put(actionName, action);
+    }
+
+    protected void evaluateHealthEducationOnHivInterventions(MemberObject memberObject, Map<String, List<VisitDetail>> details) throws BaseSbcVisitAction.ValidationException {
+        SbcVisitActionHelper actionHelper = new HealthEducationOnHivInterventionsActionHelper(mContext, memberObject);
+
+        String actionName = mContext.getString(R.string.sbc_visit_action_title_health_education_on_hiv_interventions);
+
+        BaseSbcVisitAction action = getBuilder(actionName).withOptional(false).withDetails(details).withHelper(actionHelper).withFormName(Constants.FORMS.SBC_HEALTH_EDUCATION_ON_HIV).build();
+
+        actionList.put(actionName, action);
+    }
+
+    protected void evaluateHealthEducationSbcMaterials(MemberObject memberObject, Map<String, List<VisitDetail>> details) throws BaseSbcVisitAction.ValidationException {
+        SbcVisitActionHelper actionHelper = new HivHealthEducationSbcMaterialsActionHelper(mContext, memberObject);
+
+        String actionName = mContext.getString(R.string.sbc_visit_action_title_health_education_sbc_materials);
+
+        BaseSbcVisitAction action = getBuilder(actionName).withOptional(false).withDetails(details).withHelper(actionHelper).withFormName(Constants.FORMS.HEALTH_EDUCATION_SBC_MATERIALS).build();
+
+        actionList.put(actionName, action);
+    }
+
+    protected void evaluateArtAndCondomEducation(MemberObject memberObject, Map<String, List<VisitDetail>> details) throws BaseSbcVisitAction.ValidationException {
+        SbcVisitActionHelper actionHelper = new ArtAndCondomEducationActionHelper(mContext, memberObject);
+
+        String actionName = mContext.getString(R.string.sbc_visit_action_title_art_and_condom_education);
+
+        BaseSbcVisitAction action = getBuilder(actionName).withOptional(false).withDetails(details).withHelper(actionHelper).withFormName(Constants.FORMS.SBC_ART_CONDOM_EDUCATION).build();
+
+        actionList.put(actionName, action);
+    }
+
+    protected void evaluateComments(MemberObject memberObject, Map<String, List<VisitDetail>> details) throws BaseSbcVisitAction.ValidationException {
+        SbcVisitActionHelper actionHelper = new CommentsActionHelper(mContext, memberObject);
+
+        String actionName = mContext.getString(R.string.sbc_visit_action_title_comments);
+
+        BaseSbcVisitAction action = getBuilder(actionName).withOptional(false).withDetails(details).withHelper(actionHelper).withFormName(Constants.FORMS.SBC_COMMENTS).build();
+
+        actionList.put(actionName, action);
+    }
+
+    public BaseSbcVisitAction.Builder getBuilder(String title) {
+        return new BaseSbcVisitAction.Builder(mContext, title);
     }
 
     @Override
@@ -166,12 +265,12 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
             processExternalVisits(visit, externalVisits, memberID);
         }
 
-        if (SbcLibrary.isSubmitOnSave()) {
+        if (sbcLibrary.isSubmitOnSave()) {
             List<Visit> visits = new ArrayList<>(1);
             visits.add(visit);
-            VisitUtils.processVisits(visits, SbcLibrary.visitRepository(), SbcLibrary.visitDetailsRepository());
+            VisitUtils.processVisits(visits, sbcLibrary.visitRepository(), sbcLibrary.visitDetailsRepository());
 
-            Context context = SbcLibrary.getInstance().context().applicationContext();
+            Context context = sbcLibrary.getInstance().context().applicationContext();
 
         }
     }
@@ -191,20 +290,16 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
                 subEvent.put(entry.getKey(), entry.getValue());
 
                 String subMemberID = entry.getValue().getBaseEntityID();
-                if (StringUtils.isBlank(subMemberID))
-                    subMemberID = memberID;
+                if (StringUtils.isBlank(subMemberID)) subMemberID = memberID;
 
                 submitVisit(false, subMemberID, subEvent, visit.getVisitType());
             }
         }
     }
 
-    protected @Nullable Visit saveVisit(boolean editMode, String memberID, String encounterType,
-                                        final Map<String, String> jsonString,
-                                        String parentEventType
-    ) throws Exception {
+    protected @Nullable Visit saveVisit(boolean editMode, String memberID, String encounterType, final Map<String, String> jsonString, String parentEventType) throws Exception {
 
-        AllSharedPreferences allSharedPreferences = SbcLibrary.getInstance().context().allSharedPreferences();
+        AllSharedPreferences allSharedPreferences = sbcLibrary.getInstance().context().allSharedPreferences();
 
         String derivedEncounterType = StringUtils.isBlank(parentEventType) ? encounterType : "";
         Event baseEvent = JsonFormUtils.processVisitJsonForm(allSharedPreferences, memberID, derivedEncounterType, jsonString, getTableName());
@@ -220,15 +315,12 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
             baseEvent.setFormSubmissionId(JsonFormUtils.generateRandomUUIDString());
             JsonFormUtils.tagEvent(allSharedPreferences, baseEvent);
 
-            String visitID = (editMode) ?
-                    visitRepository().getLatestVisit(memberID, getEncounterType()).getVisitId() :
-                    JsonFormUtils.generateRandomUUIDString();
+            String visitID = (editMode) ? visitRepository().getLatestVisit(memberID, getEncounterType()).getVisitId() : JsonFormUtils.generateRandomUUIDString();
 
             // reset database
             if (editMode) {
                 Visit visit = visitRepository().getVisitByVisitId(visitID);
-                if (visit != null)
-                    baseEvent.setEventDate(visit.getDate());
+                if (visit != null) baseEvent.setEventDate(visit.getDate());
 
                 deleteProcessedVisit(visitID, memberID);
                 deleteOldVisit(visitID);
@@ -250,24 +342,24 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
 
     @VisibleForTesting
     public VisitRepository visitRepository() {
-        return SbcLibrary.getInstance().visitRepository();
+        return sbcLibrary.getInstance().visitRepository();
     }
 
     protected void deleteOldVisit(String visitID) {
         visitRepository().deleteVisit(visitID);
-        SbcLibrary.getInstance().visitDetailsRepository().deleteVisitDetails(visitID);
+        sbcLibrary.getInstance().visitDetailsRepository().deleteVisitDetails(visitID);
 
         List<Visit> childVisits = visitRepository().getChildEvents(visitID);
         for (Visit v : childVisits) {
             visitRepository().deleteVisit(v.getVisitId());
-            SbcLibrary.getInstance().visitDetailsRepository().deleteVisitDetails(v.getVisitId());
+            sbcLibrary.getInstance().visitDetailsRepository().deleteVisitDetails(v.getVisitId());
         }
     }
 
 
     protected void deleteProcessedVisit(String visitID, String baseEntityId) {
         // check if the event
-        AllSharedPreferences allSharedPreferences = SbcLibrary.getInstance().context().allSharedPreferences();
+        AllSharedPreferences allSharedPreferences = sbcLibrary.getInstance().context().allSharedPreferences();
         Visit visit = visitRepository().getVisitByVisitId(visitID);
         if (visit == null || !visit.getProcessed()) return;
 
@@ -294,18 +386,7 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
     }
 
     protected void deleteSavedEvent(AllSharedPreferences allSharedPreferences, String baseEntityId, String eventId, String formSubmissionId, String type) {
-        Event event = (Event) new Event()
-                .withBaseEntityId(baseEntityId)
-                .withEventDate(new Date())
-                .withEventType(Constants.EVENT_TYPE.VOID_EVENT)
-                .withLocationId(JsonFormUtils.locationId(allSharedPreferences))
-                .withProviderId(allSharedPreferences.fetchRegisteredANM())
-                .withEntityType(type)
-                .withFormSubmissionId(formSubmissionId)
-                .withVoided(true)
-                .withVoider(new User(null, allSharedPreferences.fetchRegisteredANM(), null, null))
-                .withVoidReason("Edited Event")
-                .withDateVoided(new Date());
+        Event event = (Event) new Event().withBaseEntityId(baseEntityId).withEventDate(new Date()).withEventType(Constants.EVENT_TYPE.VOID_EVENT).withLocationId(JsonFormUtils.locationId(allSharedPreferences)).withProviderId(allSharedPreferences.fetchRegisteredANM()).withEntityType(type).withFormSubmissionId(formSubmissionId).withVoided(true).withVoider(new User(null, allSharedPreferences.fetchRegisteredANM(), null, null)).withVoidReason("Edited Event").withDateVoided(new Date());
 
         event.setSyncStatus(SyncStatus.PENDING.value());
 
@@ -324,7 +405,7 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
                 for (VisitDetail d : entry.getValue()) {
                     d.setPreProcessedJson(payloadDetails);
                     d.setPreProcessedType(payloadType);
-                    SbcLibrary.getInstance().visitDetailsRepository().addVisitDetails(d);
+                    sbcLibrary.getInstance().visitDetailsRepository().addVisitDetails(d);
                 }
             }
         }
@@ -340,8 +421,7 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
             // add sbc date obs and last
             List<Object> list = new ArrayList<>();
             list.add(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-            baseEvent.addObs(new Obs("concept", "text", "pmtct_visit_date", "",
-                    list, new ArrayList<>(), null, "pmtct_visit_date"));
+            baseEvent.addObs(new Obs("concept", "text", "pmtct_visit_date", "", list, new ArrayList<>(), null, "pmtct_visit_date"));
         }
     }
 

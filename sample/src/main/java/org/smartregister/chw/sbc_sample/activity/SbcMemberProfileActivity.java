@@ -5,9 +5,7 @@ import android.content.Intent;
 
 import org.smartregister.chw.sbc.activity.BaseSbcProfileActivity;
 import org.smartregister.chw.sbc.domain.MemberObject;
-import org.smartregister.chw.sbc.presenter.BaseSbcProfilePresenter;
 import org.smartregister.chw.sbc.util.Constants;
-import org.smartregister.chw.sbc_sample.interactor.SbcProfileInteractor;
 
 
 public class SbcMemberProfileActivity extends BaseSbcProfileActivity {
@@ -18,8 +16,9 @@ public class SbcMemberProfileActivity extends BaseSbcProfileActivity {
         activity.startActivityForResult(intent, Constants.REQUEST_CODE_GET_JSON);
     }
 
-    protected void registerPresenter() {
-        profilePresenter = new BaseSbcProfilePresenter(this, new SbcProfileInteractor(), memberObject);
+    @Override
+    public void recordSbc(MemberObject memberObject) {
+        SbcVisitActivity.startMe(this, memberObject.getBaseEntityId(), false);
     }
 
     @Override
