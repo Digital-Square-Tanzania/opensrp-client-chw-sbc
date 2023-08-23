@@ -283,10 +283,10 @@
         }
       },
       {
-        "key": "number_messages_publications_mm",
+        "key": "number_messages_publications",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_messages_publications_mm",
+        "openmrs_entity_id": "number_messages_publications",
         "type": "edit_text",
         "edit_type": "number",
         "hint": "Number of messages publications published through mass media ",
@@ -296,10 +296,10 @@
         }
       },
       {
-        "key": "number_aired_messages_broadcasted_mm",
+        "key": "number_aired_messages_broadcasted",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "number_aired_messages_broadcasted_mm",
+        "openmrs_entity_id": "number_aired_messages_broadcasted",
         "type": "edit_text",
         "edit_type": "number",
         "hint": "Number of aired messages broadcasted through mass media",
