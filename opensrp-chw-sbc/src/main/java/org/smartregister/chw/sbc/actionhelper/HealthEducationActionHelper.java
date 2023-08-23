@@ -37,7 +37,7 @@ public class HealthEducationActionHelper extends SbcVisitActionHelper {
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            sbcHealthEducation = JsonFormUtils.getValue(jsonObject, "sbc_health_education");
+            sbcHealthEducation = JsonFormUtils.getValue(jsonObject, "health_education_received");
         } catch (Exception e) {
             Timber.e(e);
         }

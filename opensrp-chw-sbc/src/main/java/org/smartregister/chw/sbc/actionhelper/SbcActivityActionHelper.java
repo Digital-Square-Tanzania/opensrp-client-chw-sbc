@@ -37,7 +37,7 @@ public class SbcActivityActionHelper extends SbcVisitActionHelper {
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            sbcActivityType = JsonFormUtils.getValue(jsonObject, "sbc_activity_type");
+            sbcActivityType = JsonFormUtils.getValue(jsonObject, "activity_type");
         } catch (Exception e) {
             Timber.e(e);
         }

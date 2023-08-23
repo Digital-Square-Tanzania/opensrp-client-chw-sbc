@@ -56,25 +56,25 @@
     "title": "Services Survey",
     "fields": [
       {
-        "key": "sbc_received_sms",
+        "key": "received_any_hiv_sms",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_received_sms",
+        "openmrs_entity_id": "received_any_hiv_sms",
         "type": "native_radio",
         "label": "Have you received any SMS about HIV and AIDS within this month?",
         "text_color": "#000000",
         "options": [
           {
-            "key": "sbc_sms_yes",
+            "key": "sms_yes",
             "text": "Yes",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "sbc_sms_yes"
+            "openmrs_entity_id": "sms_yes"
           },
           {
-            "key": "sbc_sms_no",
+            "key": "sms_no",
             "text": "No",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "sbc_sms_no"
+            "openmrs_entity_id": "sms_no"
           }
         ],
         "v_required": {
@@ -83,10 +83,10 @@
         }
       },
       {
-        "key": "sbc_received_message",
+        "key": "received_message",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_received_message",
+        "openmrs_entity_id": "received_message",
         "openmrs_data_type": "select one",
         "type": "check_box",
         "label": "Message content received",
@@ -200,17 +200,17 @@
           "err": "Required"
         },
         "relevance": {
-          "step1:sbc_received_sms": {
+          "step1:received_any_hiv_sms": {
             "type": "string",
-            "ex": "equalTo(., \"sbc_sms_yes\")"
+            "ex": "equalTo(., \"sms_yes\")"
           }
         }
       },
       {
-        "key": "sbc_receive_message_other",
+        "key": "other_received_message",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_receive_message_other",
+        "openmrs_entity_id": "other_received_message",
         "type": "edit_text",
         "hint": "Other (Specify)",
         "v_required": {
@@ -218,7 +218,7 @@
           "err": "Required"
         },
         "relevance": {
-          "step1:sbc_received_message": {
+          "step1:received_message": {
             "ex-checkbox": [
               {
                 "or": [
@@ -230,10 +230,10 @@
         }
       },
       {
-        "key": "sbc_not_received_message",
+        "key": "reason_not_receiving_hiv_sms",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_not_received_message",
+        "openmrs_entity_id": "reason_not_receiving_hiv_sms",
         "openmrs_data_type": "select one",
         "type": "check_box",
         "label": "Reason for not receiving HIV and AIDS SMS",
@@ -281,17 +281,17 @@
           "err": "Required"
         },
         "relevance": {
-          "step1:sbc_received_sms": {
+          "step1:received_any_hiv_sms": {
             "type": "string",
-            "ex": "equalTo(., \"sbc_sms_no\")"
+            "ex": "equalTo(., \"sms_no\")"
           }
         }
       },
       {
-        "key": "sbc_not_receive_message_other",
+        "key": "other_reason_not_receiving_hiv_sms",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_not_receive_message_other",
+        "openmrs_entity_id": "other_reason_not_receiving_hiv_sms",
         "type": "edit_text",
         "hint": "Other (Specify)",
         "v_required": {
@@ -299,7 +299,7 @@
           "err": "Required"
         },
         "relevance": {
-          "step1:sbc_not_received_message": {
+          "step1:reason_not_receiving_hiv_sms": {
             "ex-checkbox": [
               {
                 "or": [
@@ -311,25 +311,25 @@
         }
       },
       {
-        "key": "sbc_received_toll_free",
+        "key": "used_toll_free",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_received_toll_free",
+        "openmrs_entity_id": "used_toll_free",
         "type": "native_radio",
         "label": "Have you used Toll-Free service?",
         "text_color": "#000000",
         "options": [
           {
-            "key": "sbc_toll_free_yes",
+            "key": "toll_free_yes",
             "text": "Yes",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "sbc_toll_free_yes"
+            "openmrs_entity_id": "toll_free_yes"
           },
           {
-            "key": "sbc_toll_free_no",
+            "key": "toll_free_no",
             "text": "No",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "sbc_toll_free_no"
+            "openmrs_entity_id": "toll_free_no"
           }
         ],
         "v_required": {
@@ -338,10 +338,10 @@
         }
       },
       {
-        "key": "sbc_toll_free_service",
+        "key": "toll_free_service_accessed",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "sbc_toll_free_service",
+        "openmrs_entity_id": "toll_free_service_accessed",
         "openmrs_data_type": "select one",
         "type": "check_box",
         "label": "Which Toll-free service have you accessed?",
@@ -365,9 +365,9 @@
           "err": "Required"
         },
         "relevance": {
-          "step1:sbc_received_toll_free": {
+          "step1:used_toll_free": {
             "type": "string",
-            "ex": "equalTo(., \"sbc_toll_free_yes\")"
+            "ex": "equalTo(., \"toll_free_yes\")"
           }
         }
       }

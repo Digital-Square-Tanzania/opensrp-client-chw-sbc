@@ -37,7 +37,7 @@ public class ServicesSurveyActionHelper extends SbcVisitActionHelper {
     public void onPayloadReceived(String jsonPayload) {
         try {
             JSONObject jsonObject = new JSONObject(jsonPayload);
-            sbcReceivedSms = JsonFormUtils.getValue(jsonObject, "sbc_received_sms");
+            sbcReceivedSms = JsonFormUtils.getValue(jsonObject, "received_any_hiv_sms");
         } catch (Exception e) {
             Timber.e(e);
         }
