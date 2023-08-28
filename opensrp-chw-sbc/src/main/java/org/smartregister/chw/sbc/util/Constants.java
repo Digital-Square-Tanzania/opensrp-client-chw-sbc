@@ -16,6 +16,8 @@ public interface Constants {
         String SBC_REGISTRATION = "SBC Registration";
         String SBC_FOLLOW_UP_VISIT = "SBC Follow-up Visit";
 
+        String SBC_HEALTH_EDUCATION_MOBILIZATION = "SBC Health Education Mobilization";
+
         String VOID_EVENT = "Void Event";
     }
 
@@ -28,12 +30,14 @@ public interface Constants {
         String SBC_SERVICE_SURVEY = "sbc_service_survey";
         String SBC_ART_CONDOM_EDUCATION = "sbc_art_condom_education";
         String SBC_COMMENTS = "sbc_comments";
+        String SBC_MOBILIZATION_SESSION= "sbc_health_education_mobilization";
     }
 
     interface TABLES {
         String SBC_REGISTER = "ec_sbc_register";
 
         String SBC_FOLLOW_UP = "ec_sbc_follow_up_visit";
+        String SBC_MOBILIZATION_SESSIONS = "ec_sbc_mobilization_session";
 
     }
 

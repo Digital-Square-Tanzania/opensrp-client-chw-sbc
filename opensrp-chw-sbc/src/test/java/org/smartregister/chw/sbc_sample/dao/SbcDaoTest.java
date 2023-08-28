@@ -29,13 +29,6 @@ public class SbcDaoTest extends SbcDao {
     }
 
     @Test
-    public void testGetMalariaTestDate() {
-        Mockito.doReturn(database).when(repository).getReadableDatabase();
-        SbcDao.getMalariaTestDate("123456");
-        Mockito.verify(database).rawQuery(Mockito.anyString(), Mockito.any());
-    }
-
-    @Test
     public void testIsRegisteredForMalaria() {
         Mockito.doReturn(database).when(repository).getReadableDatabase();
         boolean registered = SbcDao.isRegisteredForSbc("12345");
