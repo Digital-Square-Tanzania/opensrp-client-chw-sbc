@@ -1,5 +1,8 @@
 package org.smartregister.chw.sbc.fragment;
 
+import static android.view.View.GONE;
+import static org.smartregister.util.Utils.getName;
+
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.Fragment;
@@ -15,12 +18,9 @@ import android.widget.TextView;
 
 import org.apache.commons.lang3.StringUtils;
 import org.smartregister.chw.sbc.R;
+import org.smartregister.chw.sbc.contract.BaseSbcCallDialogContract;
 import org.smartregister.chw.sbc.domain.MemberObject;
 import org.smartregister.chw.sbc.listener.BaseSbcCallWidgetDialogListener;
-import org.smartregister.chw.sbc.contract.BaseSbcCallDialogContract;
-
-import static android.view.View.GONE;
-import static org.smartregister.util.Utils.getName;
 
 public class BaseSbcCallDialogFragment extends DialogFragment implements BaseSbcCallDialogContract.View {
 
@@ -54,8 +54,7 @@ public class BaseSbcCallDialogFragment extends DialogFragment implements BaseSbc
     }
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         ViewGroup dialogView = (ViewGroup) inflater.inflate(R.layout.sbc_member_call_widget_dialog_fragment, container, false);
         setUpPosition();
         if (listener == null) {
@@ -70,12 +69,8 @@ public class BaseSbcCallDialogFragment extends DialogFragment implements BaseSbc
         TextView callTitle = rootView.findViewById(viewId);
         if (MEMBER_OBJECT.getBaseEntityId().equals(MEMBER_OBJECT.getFamilyHead())) {
             callTitle.setText(String.format("%s %s", message, getResources().getString(R.string.call_family_head)));
-        } else if ("0".equals(MEMBER_OBJECT.getAncMember())) {
-            callTitle.setText(String.format("%s %s", message, getResources().getString(R.string.call_anc_client)));
         } else if (MEMBER_OBJECT.getBaseEntityId().equals(MEMBER_OBJECT.getPrimaryCareGiver())) {
             callTitle.setText(String.format("%s %s", message, getResources().getString(R.string.call_primary_caregiver)));
-        } else if ("0".equals(MEMBER_OBJECT.getPncMember())) {
-            callTitle.setText(String.format("%s %s", message, getResources().getString(R.string.call_pnc_client)));
         } else {
             callTitle.setText(String.format("%s %s", message, getResources().getString(R.string.call_sbc_client)));
         }
@@ -89,8 +84,7 @@ public class BaseSbcCallDialogFragment extends DialogFragment implements BaseSbc
                 familyHeadName.setText(MEMBER_OBJECT.getFamilyHeadName());
                 TextView clientCallHeadPhone = rootView.findViewById(R.id.sbc_call_head_phone);
                 clientCallHeadPhone.setTag(MEMBER_OBJECT.getPhoneNumber());
-                clientCallHeadPhone.setText(
-                        getName(getCurrentContext().getString(R.string.call), MEMBER_OBJECT.getFamilyHeadPhoneNumber()));
+                clientCallHeadPhone.setText(getName(getCurrentContext().getString(R.string.call), MEMBER_OBJECT.getFamilyHeadPhoneNumber()));
                 clientCallHeadPhone.setOnClickListener(listener);
 
             } else {

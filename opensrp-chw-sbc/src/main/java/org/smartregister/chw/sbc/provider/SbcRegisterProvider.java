@@ -1,13 +1,16 @@
 package org.smartregister.chw.sbc.provider;
 
+import static org.smartregister.util.Utils.getName;
+
 import android.content.Context;
 import android.database.Cursor;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
@@ -29,8 +32,6 @@ import java.text.MessageFormat;
 import java.util.Set;
 
 import timber.log.Timber;
-
-import static org.smartregister.util.Utils.getName;
 
 public class SbcRegisterProvider implements RecyclerViewProvider<SbcRegisterProvider.RegisterViewHolder> {
 
@@ -59,14 +60,9 @@ public class SbcRegisterProvider implements RecyclerViewProvider<SbcRegisterProv
     }
 
     private String updateMemberGender(CommonPersonObjectClient commonPersonObjectClient) {
-        if ("0".equals(Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.IS_ANC_CLOSED, false))) {
-            return context.getResources().getString(R.string.anc_string);
-        } else if ("0".equals(Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.IS_PNC_CLOSED, false))) {
-            return context.getResources().getString(R.string.pnc_string);
-        } else {
-            String gender = Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.GENDER, true);
-            return SbcUtil.getGenderTranslated(context, gender);
-        }
+        String gender = Utils.getValue(commonPersonObjectClient.getColumnmaps(), DBConstants.KEY.GENDER, true);
+        return SbcUtil.getGenderTranslated(context, gender);
+
     }
 
     private void populatePatientColumn(CommonPersonObjectClient pc, final RegisterViewHolder viewHolder) {
@@ -87,13 +83,11 @@ public class SbcRegisterProvider implements RecyclerViewProvider<SbcRegisterProv
             viewHolder.patientColumn.setTag(pc);
             viewHolder.patientColumn.setTag(R.id.VIEW_ID, BaseSbcRegisterFragment.CLICK_VIEW_NORMAL);
 
-            viewHolder.dueButton.setOnClickListener(onClickListener);
             viewHolder.dueButton.setTag(pc);
             viewHolder.dueButton.setTag(R.id.VIEW_ID, BaseSbcRegisterFragment.FOLLOW_UP_VISIT);
             viewHolder.registerColumns.setOnClickListener(onClickListener);
 
             viewHolder.registerColumns.setOnClickListener(v -> viewHolder.patientColumn.performClick());
-            viewHolder.registerColumns.setOnClickListener(v -> viewHolder.dueButton.performClick());
 
         } catch (Exception e) {
             Timber.e(e);
@@ -149,7 +143,7 @@ public class SbcRegisterProvider implements RecyclerViewProvider<SbcRegisterProv
         return viewHolder instanceof FooterViewHolder;
     }
 
-    public class RegisterViewHolder extends RecyclerView.ViewHolder {
+    public static class RegisterViewHolder extends RecyclerView.ViewHolder {
         public TextView patientName;
         public TextView parentName;
         public TextView textViewVillage;

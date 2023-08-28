@@ -1,15 +1,16 @@
 package org.smartregister.chw.sbc.listener;
 
 import android.app.Activity;
-import androidx.annotation.NonNull;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
 
 import org.smartregister.chw.sbc.R;
 import org.smartregister.listener.BottomNavigationListener;
 import org.smartregister.view.activity.BaseRegisterActivity;
 
 public class SbcBottomNavigationListener extends BottomNavigationListener {
-    private Activity context;
+    private final Activity context;
 
     public SbcBottomNavigationListener(Activity context) {
         super(context);
@@ -24,8 +25,8 @@ public class SbcBottomNavigationListener extends BottomNavigationListener {
 
         if (item.getItemId() == R.id.action_family) {
             baseRegisterActivity.switchToBaseFragment();
-        } else if (item.getItemId() == R.id.action_scan_qr) {
-            baseRegisterActivity.startQrCodeScanner();
+        } else if (item.getItemId() == R.id.action_sbc_mobilization) {
+            baseRegisterActivity.switchToFragment(1);
         }
 
         return true;

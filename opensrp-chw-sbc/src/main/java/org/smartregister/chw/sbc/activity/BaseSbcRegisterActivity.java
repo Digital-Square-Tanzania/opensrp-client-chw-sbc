@@ -167,7 +167,6 @@ public class BaseSbcRegisterActivity extends BaseRegisterActivity implements Sbc
                 JSONObject form = new JSONObject(jsonString);
                 JSONArray fieldsOne = SbcJsonFormUtils.fields(form, Constants.STEP_ONE);
                 updateFormField(fieldsOne, DBConstants.KEY.RELATIONAL_ID, FAMILY_BASE_ENTITY_ID);
-//                process malaria form
                 presenter().saveForm(form.toString());
             } catch (JSONException e) {
                 Timber.e(e);

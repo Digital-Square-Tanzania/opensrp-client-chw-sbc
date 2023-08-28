@@ -4,14 +4,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.smartregister.chw.sbc.R;
-import org.smartregister.chw.sbc.model.BaseSbcRegisterFragmentModel;
-import org.smartregister.chw.sbc.presenter.BaseSbcRegisterFragmentPresenter;
 import org.smartregister.chw.sbc.activity.BaseSbcProfileActivity;
 import org.smartregister.chw.sbc.contract.SbcRegisterFragmentContract;
+import org.smartregister.chw.sbc.model.BaseSbcRegisterFragmentModel;
+import org.smartregister.chw.sbc.presenter.BaseSbcRegisterFragmentPresenter;
+import org.smartregister.chw.sbc.provider.SbcRegisterProvider;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
 import org.smartregister.configurableviews.model.View;
 import org.smartregister.cursoradapter.RecyclerViewPaginatedAdapter;
-import org.smartregister.chw.sbc.provider.SbcRegisterProvider;
 import org.smartregister.view.customcontrols.CustomFontTextView;
 import org.smartregister.view.customcontrols.FontVariant;
 import org.smartregister.view.fragment.BaseRegisterFragment;
@@ -65,7 +65,7 @@ public class BaseSbcRegisterFragment extends BaseRegisterFragment implements Sbc
         CustomFontTextView titleView = view.findViewById(R.id.txt_title_label);
         if (titleView != null) {
             titleView.setVisibility(android.view.View.VISIBLE);
-            titleView.setText(getString(R.string.malaria));
+            titleView.setText(getString(R.string.sbc));
             titleView.setFontVariant(FontVariant.REGULAR);
         }
     }

@@ -10,6 +10,8 @@ import org.smartregister.chw.sbc.contract.SbcRegisterContract;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import timber.log.Timber;
+
 public class BaseSbcRegisterPresenter implements SbcRegisterContract.Presenter, SbcRegisterContract.InteractorCallBack {
 
     public static final String TAG = BaseSbcRegisterPresenter.class.getName();
@@ -40,7 +42,7 @@ public class BaseSbcRegisterPresenter implements SbcRegisterContract.Presenter, 
             getView().showProgressDialog(R.string.saving_dialog_title);
             interactor.saveRegistration(jsonString, this);
         } catch (Exception e) {
-            Log.e(TAG, Log.getStackTraceString(e));
+            Timber.tag(TAG).e(Log.getStackTraceString(e));
         }
     }
 

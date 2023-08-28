@@ -30,10 +30,10 @@ public class MemberObject implements Serializable {
     private String familyBaseEntityId;
     private String familyName;
     private String phoneNumber;
-    private String gestAge;
-    private String deliveryDate;
-    private String ancMember;
-    private String pncMember;
+
+    private String hivStatus;
+
+    private String ctcNumber;
 
     public MemberObject() {
     }
@@ -177,23 +177,6 @@ public class MemberObject implements Serializable {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getGestAge() {
-        return gestAge;
-    }
-
-    public void setGestAge(String gestAge) {
-        this.gestAge = gestAge;
-    }
-
-    public String getDeliveryDate() {
-        return deliveryDate;
-    }
-
-    public void setDeliveryDate(String deliveryDate) {
-        this.deliveryDate = deliveryDate;
-    }
-
-
     public String getFamilyHeadName() {
         return familyHeadName;
     }
@@ -226,23 +209,23 @@ public class MemberObject implements Serializable {
         this.primaryCareGiverPhone = primaryCareGiverPhone;
     }
 
-    public String getAncMember() {
-        return ancMember;
-    }
-
-    public void setAncMember(String ancMember) {
-        this.ancMember = ancMember;
-    }
-
-    public String getPncMember() {
-        return pncMember;
-    }
-
-    public void setPncMember(String pncMember) {
-        this.pncMember = pncMember;
-    }
-
     public String getFullName() {
         return Utils.getName(getFirstName(), getLastName());
+    }
+
+    public String getHivStatus() {
+        return hivStatus;
+    }
+
+    public void setHivStatus(String hivStatus) {
+        this.hivStatus = hivStatus;
+    }
+
+    public String getCtcNumber() {
+        return ctcNumber;
+    }
+
+    public void setCtcNumber(String ctcNumber) {
+        this.ctcNumber = ctcNumber;
     }
 }

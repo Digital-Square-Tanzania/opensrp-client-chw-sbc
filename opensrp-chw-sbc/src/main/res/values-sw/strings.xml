@@ -1,7 +1,7 @@
 <resources>
     <string name="error_unable_to_start_form">Hitilafu imetokea wakati wa kuanzisha fomu</string>
     <string name="error_unable_to_save_form">Hitilafu imetokea wakati wa kuhifadhi fomu</string>
-    <string name="malaria">Malaria</string>
+    <string name="sbc">SBC</string>
     <string name="add_member">Sajili mwanafamilia</string>
     <string name="sort">Panga</string>
     <string name="home">Nyumbani</string>
@@ -11,7 +11,7 @@
     <string name="saving_dialog_title">Kuhifadhi</string>
     <string name="malaria_followup_visit">Tembeleo la ufuatiliaji</string>
     <string name="record_sbc">Rekodi ufuatiliaji wa SBC</string>
-    <string name="return_to_previous_page">Rudi kwenye wateja wote wa malaria</string>
+    <string name="return_to_previous_sbc_clients_page">Rudi kwenye wateja wote wa malaria</string>
     <string name="last_visit_40_days_ago">Tembeleo la mwisho %1$s uliyopita</string>
     <string name="view_medical_history">Angalia historia ya huduma</string>
     <string name="medical_history">Historia ya huduma</string>

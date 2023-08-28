@@ -42,7 +42,7 @@
                         android:gravity="center_vertical|start"
                         android:paddingStart="0dp"
                         android:paddingEnd="0dp"
-                        android:text="@string/return_to_previous_page"
+                        android:text="@string/return_to_previous_sbc_clients_page"
                         android:textColor="@color/customAppThemeBlue"
                         android:textSize="17sp" />
                 </androidx.appcompat.widget.Toolbar>
