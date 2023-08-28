@@ -31,7 +31,6 @@ import org.smartregister.chw.sbc.interactor.BaseSbcProfileInteractor;
 import org.smartregister.chw.sbc.presenter.BaseSbcProfilePresenter;
 import org.smartregister.chw.sbc.util.Constants;
 import org.smartregister.chw.sbc.util.SbcUtil;
-import org.smartregister.domain.AlertStatus;
 import org.smartregister.helper.ImageRenderHelper;
 import org.smartregister.view.activity.BaseProfileActivity;
 
@@ -53,13 +52,10 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
     protected TextView textViewUniqueID;
     protected TextView textViewRecordSbc;
     protected View view_most_due_overdue_row;
-    protected View view_family_row;
     protected RelativeLayout rlLastVisit;
-    protected RelativeLayout rlFamilyServicesDue;
     protected RelativeLayout visitStatus;
     protected ImageView imageViewCross;
     protected TextView textViewUndo;
-    private TextView tvFamilyStatus;
     private SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMM", Locale.getDefault());
     protected TextView textViewVisitDone;
     protected RelativeLayout visitDone;
@@ -101,11 +97,8 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
         textViewLocation = findViewById(R.id.textview_address);
         textViewUniqueID = findViewById(R.id.textview_id);
         view_most_due_overdue_row = findViewById(R.id.view_most_due_overdue_row);
-        view_family_row = findViewById(R.id.view_family_row);
         imageViewCross = findViewById(R.id.tick_image);
-        tvFamilyStatus = findViewById(R.id.textview_family_has);
         rlLastVisit = findViewById(R.id.rlLastVisit);
-        rlFamilyServicesDue = findViewById(R.id.rlFamilyServicesDue);
         textViewVisitDone = findViewById(R.id.textview_visit_done);
         visitStatus = findViewById(R.id.record_visit_not_done_bar);
         visitDone = findViewById(R.id.visit_done_bar);
@@ -117,7 +110,6 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
         imageView = findViewById(R.id.imageview_profile);
         textViewVisitDoneEdit.setOnClickListener(this);
         rlLastVisit.setOnClickListener(this);
-        rlFamilyServicesDue.setOnClickListener(this);
         textViewRecordSbc.setOnClickListener(this);
         textViewUndo.setOnClickListener(this);
 
@@ -144,8 +136,6 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
             onBackPressed();
         } else if (id == R.id.rlLastVisit) {
             this.openMedicalHistory();
-        } else if (id == R.id.rlFamilyServicesDue) {
-            this.openFamilyDueServices();
         } else if (id == R.id.textview_record_sbc) {
             this.recordSbc(memberObject);
         }
@@ -221,31 +211,9 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
         rlLastVisit.setVisibility(hasHistory ? View.VISIBLE : View.GONE);
     }
 
-    @Override
-    public void refreshFamilyStatus(AlertStatus status) {
-        showProgressBar(false);
-        if (status == AlertStatus.complete) {
-            setFamilyStatus(getString(R.string.family_has_nothing_due));
-        } else if (status == AlertStatus.normal) {
-            setFamilyStatus(getString(R.string.family_has_services_due));
-        } else if (status == AlertStatus.urgent) {
-            tvFamilyStatus.setText(SbcUtil.fromHtml(getString(R.string.family_has_service_overdue)));
-        }
-    }
-
-    private void setFamilyStatus(String familyStatus) {
-        view_family_row.setVisibility(View.VISIBLE);
-        rlFamilyServicesDue.setVisibility(View.VISIBLE);
-        tvFamilyStatus.setText(familyStatus);
-    }
 
     @Override
     public void openMedicalHistory() {
-        //implement
-    }
-
-    @Override
-    public void openFamilyDueServices() {
         //implement
     }
 
@@ -269,7 +237,6 @@ public class BaseSbcProfileActivity extends BaseProfileActivity implements SbcPr
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.REQUEST_CODE_GET_JSON && resultCode == RESULT_OK) {
             profilePresenter.saveForm(data.getStringExtra(Constants.JSON_FORM_EXTRA.JSON));
-            finish();
         }
     }
 }

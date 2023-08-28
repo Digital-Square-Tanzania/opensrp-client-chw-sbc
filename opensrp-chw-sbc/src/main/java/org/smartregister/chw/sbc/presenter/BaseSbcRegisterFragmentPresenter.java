@@ -34,7 +34,7 @@ public class BaseSbcRegisterFragmentPresenter implements SbcRegisterFragmentCont
 
     @Override
     public String getMainCondition() {
-        return "";
+        return Constants.TABLES.SBC_REGISTER + "." + "is_closed is 0";
     }
 
     @Override

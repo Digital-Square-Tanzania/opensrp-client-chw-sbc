@@ -4,6 +4,7 @@ package org.smartregister.chw.sbc.util;
 import static org.smartregister.chw.sbc.util.JsonFormUtils.HOME_VISIT_GROUP;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -27,7 +28,33 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import timber.log.Timber;
+
 public class VisitUtils {
+
+
+    public static void processVisits(VisitRepository visitRepository, VisitDetailsRepository visitDetailsRepository, Context context) throws Exception {
+
+        List<Visit> visits = visitRepository.getAllUnSynced();
+        List<Visit> visitList = new ArrayList<>();
+
+        for (Visit v : visits) {
+
+            if (v.getVisitType().equalsIgnoreCase(Constants.EVENT_TYPE.SBC_FOLLOW_UP_VISIT)) {
+                try {
+                    visitList.add(v);
+                } catch (Exception e) {
+                    Timber.e(e);
+                }
+            }
+        }
+
+        if (visitList.size() > 0) {
+            processVisits(visitList, visitRepository, visitDetailsRepository);
+            //TODO: Extract string resource and give a more descriptive text
+            Toast.makeText(context, "VISIT SAVED AND PROCESSED", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     public static List<Visit> getVisits(String memberID, String... eventTypes) {
 
@@ -74,7 +101,7 @@ public class VisitUtils {
 
     public static void processVisits(VisitRepository visitRepository, VisitDetailsRepository visitDetailsRepository, String baseEntityID) throws Exception {
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.HOUR_OF_DAY, -24);
+        calendar.add(Calendar.HOUR_OF_DAY, -0);
 
         List<Visit> visits = StringUtils.isNotBlank(baseEntityID) ?
                 visitRepository.getAllUnSynced(calendar.getTime().getTime(), baseEntityID) :

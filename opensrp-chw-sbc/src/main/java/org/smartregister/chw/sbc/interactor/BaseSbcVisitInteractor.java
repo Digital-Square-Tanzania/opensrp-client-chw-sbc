@@ -21,6 +21,7 @@ import org.smartregister.chw.sbc.actionhelper.SbcActivityActionHelper;
 import org.smartregister.chw.sbc.actionhelper.SbcVisitActionHelper;
 import org.smartregister.chw.sbc.actionhelper.ServicesSurveyActionHelper;
 import org.smartregister.chw.sbc.contract.BaseSbcVisitContract;
+import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.sbc.domain.MemberObject;
 import org.smartregister.chw.sbc.domain.Visit;
 import org.smartregister.chw.sbc.domain.VisitDetail;
@@ -95,7 +96,7 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
      */
     @Override
     public MemberObject getMemberClient(String memberID) {
-        return null;
+        return SbcDao.getMember(memberID);
     }
 
     @Override
@@ -420,8 +421,8 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
         if (baseEvent != null) {
             // add sbc date obs and last
             List<Object> list = new ArrayList<>();
-            list.add(new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date()));
-            baseEvent.addObs(new Obs("concept", "text", "pmtct_visit_date", "", list, new ArrayList<>(), null, "pmtct_visit_date"));
+            list.add(new Date());
+            baseEvent.addObs(new Obs("concept", "text", "vmmc_visit_date", "", list, new ArrayList<>(), null, "vmmc_visit_date"));
         }
     }
 
@@ -435,7 +436,7 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
     }
 
     protected String getEncounterType() {
-        return Constants.EVENT_TYPE.SBC_REGISTRATION;
+        return Constants.EVENT_TYPE.SBC_FOLLOW_UP_VISIT;
     }
 
     protected String getTableName() {

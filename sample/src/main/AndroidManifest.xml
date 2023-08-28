@@ -22,10 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.SampleJsonFormActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".activity.SbcMemberProfileActivity"/>
-        <activity android:name=".activity.SbcVisitActivity"
+        <activity
+            android:name=".activity.SampleJsonFormActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.SbcMemberProfileActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.SbcVisitActivity"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
