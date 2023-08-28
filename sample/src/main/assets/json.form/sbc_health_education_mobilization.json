@@ -1,6 +1,6 @@
 {
   "count": "1",
-  "encounter_type": "Health Education Mobilization",
+  "encounter_type": "SBC Health Education Mobilization",
   "validate_on_submit": true,
   "entity_id": "",
   "relational_id": "",
@@ -86,6 +86,7 @@
         "openmrs_entity_id": "community_sbc_activity_provided",
         "openmrs_data_type": "select one",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Type of Community SBC activity provided",
         "hint": "Type of Community SBC activity provided",
         "options": [
@@ -203,6 +204,7 @@
         "openmrs_entity_id": "iec_materials_distributed",
         "openmrs_data_type": "select one",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Select IEC materials distributed",
         "hint": "Select IEC materials distributed",
         "options": [
@@ -309,6 +311,7 @@
         "openmrs_entity_id": "pmtct_iec_materials_distributed",
         "openmrs_data_type": "select one",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Select PMTCT IEC materials distributed",
         "hint": "Select PMTCT IEC materials distributed",
         "options": [
@@ -479,6 +482,13 @@
             ]
           }
         }
+      },
+      {
+        "key": "chw_name",
+        "openmrs_entity_parent": "",
+        "openmrs_entity": "concept",
+        "openmrs_entity_id": "chw_name",
+        "type": "hidden"
       }
     ]
   }
