@@ -62,6 +62,7 @@
         "openmrs_entity_id": "health_education_received",
         "openmrs_data_type": "select one",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "SBC Health Education Session(s) received",
         "hint": "SBC Health Education Session(s) received",
         "options": [

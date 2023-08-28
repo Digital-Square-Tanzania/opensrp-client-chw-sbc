@@ -65,16 +65,16 @@
         "text_color": "#000000",
         "options": [
           {
-            "key": "sms_yes",
+            "key": "yes",
             "text": "Yes",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "sms_yes"
+            "openmrs_entity_id": "yes"
           },
           {
-            "key": "sms_no",
+            "key": "no",
             "text": "No",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "sms_no"
+            "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
@@ -89,6 +89,7 @@
         "openmrs_entity_id": "received_message",
         "openmrs_data_type": "select one",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Message content received",
         "hint": "Message content received",
         "options": [
@@ -202,7 +203,7 @@
         "relevance": {
           "step1:received_any_hiv_sms": {
             "type": "string",
-            "ex": "equalTo(., \"sms_yes\")"
+            "ex": "equalTo(., \"yes\")"
           }
         }
       },
@@ -236,6 +237,7 @@
         "openmrs_entity_id": "reason_not_receiving_hiv_sms",
         "openmrs_data_type": "select one",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Reason for not receiving HIV and AIDS SMS",
         "hint": "Reason for not receiving HIV and AIDS SMS",
         "options": [
@@ -283,7 +285,7 @@
         "relevance": {
           "step1:received_any_hiv_sms": {
             "type": "string",
-            "ex": "equalTo(., \"sms_no\")"
+            "ex": "equalTo(., \"no\")"
           }
         }
       },
@@ -320,16 +322,16 @@
         "text_color": "#000000",
         "options": [
           {
-            "key": "toll_free_yes",
+            "key": "yes",
             "text": "Yes",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "toll_free_yes"
+            "openmrs_entity_id": "yes"
           },
           {
-            "key": "toll_free_no",
+            "key": "no",
             "text": "No",
             "openmrs_entity": "concept",
-            "openmrs_entity_id": "toll_free_no"
+            "openmrs_entity_id": "no"
           }
         ],
         "v_required": {
@@ -344,6 +346,7 @@
         "openmrs_entity_id": "toll_free_service_accessed",
         "openmrs_data_type": "select one",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Which Toll-free service have you accessed?",
         "hint": "Which Toll-free service have you accessed?",
         "options": [
@@ -367,7 +370,7 @@
         "relevance": {
           "step1:used_toll_free": {
             "type": "string",
-            "ex": "equalTo(., \"toll_free_yes\")"
+            "ex": "equalTo(., \"yes\")"
           }
         }
       }

@@ -83,14 +83,15 @@
         }
       },
       {
-        "key": "health_education_hiv_intervention",
+        "key": "type_of_materials_content_distributed",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "health_education_hiv_intervention",
+        "openmrs_entity_id": "type_of_materials_content_distributed",
         "openmrs_data_type": "select one",
         "type": "check_box",
-        "label": "Health Education on HIV Intervention",
-        "hint": "Health Education on HIV Intervention",
+        "combine_checkbox_option_values": "true",
+        "label": "Type of material contents distributed",
+        "hint": "Type of material contents distributed",
         "options": [
           {
             "key": "htc",
@@ -207,10 +208,10 @@
         }
       },
       {
-        "key": "other_health_education_hiv_intervention",
+        "key": "other_type_of_materials_content_distributed",
         "openmrs_entity_parent": "",
         "openmrs_entity": "concept",
-        "openmrs_entity_id": "other_health_education_hiv_intervention",
+        "openmrs_entity_id": "other_type_of_materials_content_distributed",
         "type": "edit_text",
         "hint": "Other (Specify)",
         "v_required": {

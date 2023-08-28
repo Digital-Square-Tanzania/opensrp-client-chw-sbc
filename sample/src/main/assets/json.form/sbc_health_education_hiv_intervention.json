@@ -62,6 +62,7 @@
         "openmrs_entity_id": "health_education_hiv_intervention",
         "openmrs_data_type": "select one",
         "type": "check_box",
+        "combine_checkbox_option_values": "true",
         "label": "Health Education on HIV Intervention",
         "hint": "Health Education on HIV Intervention",
         "options": [
