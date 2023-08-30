@@ -114,7 +114,7 @@ public class SbcDao extends AbstractDao {
                         "community_sbc_activity_provided = '%s', " +
                         "iec_materials_distributed = '%s', " +
                         "number_audio_visuals_distributed = '%s', " +
-                        "number_audio_distributed = '%s, " +
+                        "number_audio_distributed = '%s', " +
                         "number_print_materials_distributed = '%s', " +
                         "pmtct_iec_materials_distributed = '%s', " +
                         "number_pmtct_audio_visuals_distributed_male = '%s', " +
@@ -122,7 +122,7 @@ public class SbcDao extends AbstractDao {
                         "number_pmtct_audio_distributed_male = '%s', " +
                         "number_pmtct_audio_distributed_female = '%s', " +
                         "number_pmtct_print_materials_distributed_male = '%s', " +
-                        "number_pmtct_print_materials_distributed_female = '%s' " +
+                        "number_pmtct_print_materials_distributed_female = '%s' ",
                         baseEntityID,
                 mobilizationDate,
                 communitySbcActivityProvided,

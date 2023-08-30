@@ -34,12 +34,12 @@ public class BaseSbcRegisterFragmentPresenter implements SbcRegisterFragmentCont
 
     @Override
     public String getMainCondition() {
-        return Constants.TABLES.SBC_REGISTER + "." + "is_closed is 0";
+        return getMainTable() + "." + "is_closed is 0";
     }
 
     @Override
     public String getDefaultSortQuery() {
-        return Constants.TABLES.SBC_REGISTER + "." + DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
+        return getMainTable() + "." + DBConstants.KEY.LAST_INTERACTED_WITH + " DESC ";
     }
 
     @Override
@@ -61,7 +61,7 @@ public class BaseSbcRegisterFragmentPresenter implements SbcRegisterFragmentCont
 
     @Override
     public void initializeQueries(String mainCondition) {
-        String tableName = Constants.TABLES.SBC_REGISTER;
+        String tableName = getMainTable();
         mainCondition = trim(getMainCondition()).equals("") ? mainCondition : getMainCondition();
         String countSelect = model.countSelect(tableName, mainCondition);
         String mainSelect = model.mainSelect(tableName, mainCondition);
