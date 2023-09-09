@@ -10,6 +10,10 @@ public interface Constants {
     interface JSON_FORM_EXTRA {
         String JSON = "json";
         String ENCOUNTER_TYPE = "encounter_type";
+
+        String DELETE_EVENT_ID = "deleted_event_id";
+
+        String DELETE_FORM_SUBMISSION_ID = "deleted_form_submission_id";
     }
 
     interface EVENT_TYPE {
@@ -18,7 +22,11 @@ public interface Constants {
 
         String SBC_HEALTH_EDUCATION_MOBILIZATION = "SBC Health Education Mobilization";
 
+        String SBC_MONTHLY_SOCIAL_MEDIA_REPORT = "Monthly Social Media Report";
+
         String VOID_EVENT = "Void Event";
+
+        String DELETE_EVENT = "Delete Event";
     }
 
     interface FORMS {
@@ -31,13 +39,18 @@ public interface Constants {
         String SBC_ART_CONDOM_EDUCATION = "sbc_art_condom_education";
         String SBC_COMMENTS = "sbc_comments";
         String SBC_MOBILIZATION_SESSION= "sbc_health_education_mobilization";
+
+        String SBC_MONTHLY_SOCIAL_MEDIA_REPORT= "sbc_monthly_social_media_report";
     }
 
     interface TABLES {
         String SBC_REGISTER = "ec_sbc_register";
 
         String SBC_FOLLOW_UP = "ec_sbc_follow_up_visit";
+
         String SBC_MOBILIZATION_SESSIONS = "ec_sbc_mobilization_session";
+
+        String SBC_MONTHLY_SOCIAL_MEDIA_REPORT = "ec_sbc_monthly_social_media_report";
 
     }
 

@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
-import org.json.JSONObject;
 import org.smartregister.chw.sbc.R;
 import org.smartregister.chw.sbc.SbcLibrary;
 import org.smartregister.chw.sbc.actionhelper.ArtAndCondomEducationActionHelper;
@@ -34,18 +33,14 @@ import org.smartregister.chw.sbc.util.NCUtils;
 import org.smartregister.chw.sbc.util.VisitUtils;
 import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.clientandeventmodel.Obs;
-import org.smartregister.clientandeventmodel.User;
-import org.smartregister.domain.SyncStatus;
 import org.smartregister.repository.AllSharedPreferences;
 import org.smartregister.sync.helper.ECSyncHelper;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import timber.log.Timber;
@@ -53,16 +48,11 @@ import timber.log.Timber;
 
 public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
 
-    protected AppExecutors appExecutors;
-
     private final SbcLibrary sbcLibrary;
-
+    private final LinkedHashMap<String, BaseSbcVisitAction> actionList;
+    protected AppExecutors appExecutors;
     private ECSyncHelper syncHelper;
-
     private Context mContext;
-
-    private LinkedHashMap<String, BaseSbcVisitAction> actionList;
-
     private Map<String, List<VisitDetail>> details = null;
 
     @VisibleForTesting
@@ -323,7 +313,7 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
                 Visit visit = visitRepository().getVisitByVisitId(visitID);
                 if (visit != null) baseEvent.setEventDate(visit.getDate());
 
-                deleteProcessedVisit(visitID, memberID);
+                VisitUtils.deleteProcessedVisit(visitID, memberID);
                 deleteOldVisit(visitID);
             }
 
@@ -343,60 +333,20 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
 
     @VisibleForTesting
     public VisitRepository visitRepository() {
-        return sbcLibrary.getInstance().visitRepository();
+        return SbcLibrary.getInstance().visitRepository();
     }
 
     protected void deleteOldVisit(String visitID) {
         visitRepository().deleteVisit(visitID);
-        sbcLibrary.getInstance().visitDetailsRepository().deleteVisitDetails(visitID);
+        SbcLibrary.getInstance().visitDetailsRepository().deleteVisitDetails(visitID);
 
         List<Visit> childVisits = visitRepository().getChildEvents(visitID);
         for (Visit v : childVisits) {
             visitRepository().deleteVisit(v.getVisitId());
-            sbcLibrary.getInstance().visitDetailsRepository().deleteVisitDetails(v.getVisitId());
+            SbcLibrary.getInstance().visitDetailsRepository().deleteVisitDetails(v.getVisitId());
         }
     }
 
-
-    protected void deleteProcessedVisit(String visitID, String baseEntityId) {
-        // check if the event
-        AllSharedPreferences allSharedPreferences = sbcLibrary.getInstance().context().allSharedPreferences();
-        Visit visit = visitRepository().getVisitByVisitId(visitID);
-        if (visit == null || !visit.getProcessed()) return;
-
-        //     Event processedEvent = HomeVisitDao.getEventByFormSubmissionId(visit.getFormSubmissionId());
-//        if (processedEvent == null) return;
-
-        //      deleteSavedEvent(allSharedPreferences, baseEntityId, processedEvent.getEventId(), processedEvent.getFormSubmissionId(), "event");
-
-        //    Map<String, String> details = processedEvent.getDetails();
-        //     String homeVisitGroup = details.get(Constants.HOME_VISIT_GROUP);
-        //   if (StringUtils.isBlank(homeVisitGroup)) return;
-
-
-        // delete all related recurring services
-//        List<ServiceRecord> serviceRecords = HomeVisitDao.fetchServicesSubmissionIdByProgramId(homeVisitGroup);
-//        for (ServiceRecord serviceRecord : serviceRecords)
-//            deleteSavedEvent(allSharedPreferences, baseEntityId, serviceRecord.getEventId(), serviceRecord.getFormSubmissionId(), "service");
-
-        // delete all related visit events
-        // List<Visit> visits = visitRepository().getVisitsByGroup(homeVisitGroup);
-        //  for (Visit childVisit : visits)
-        //    if (!childVisit.getVisitId().equalsIgnoreCase(visitID))
-        //      deleteSavedEvent(allSharedPreferences, baseEntityId, childVisit.getEventId(), childVisit.getFormSubmissionId(), "event");
-    }
-
-    protected void deleteSavedEvent(AllSharedPreferences allSharedPreferences, String baseEntityId, String eventId, String formSubmissionId, String type) {
-        Event event = (Event) new Event().withBaseEntityId(baseEntityId).withEventDate(new Date()).withEventType(Constants.EVENT_TYPE.VOID_EVENT).withLocationId(JsonFormUtils.locationId(allSharedPreferences)).withProviderId(allSharedPreferences.fetchRegisteredANM()).withEntityType(type).withFormSubmissionId(formSubmissionId).withVoided(true).withVoider(new User(null, allSharedPreferences.fetchRegisteredANM(), null, null)).withVoidReason("Edited Event").withDateVoided(new Date());
-
-        event.setSyncStatus(SyncStatus.PENDING.value());
-
-        try {
-            syncHelper.addEvent(event.getBaseEntityId(), new JSONObject(JsonFormUtils.gson.toJson(event)));
-        } catch (Exception e) {
-            Timber.e(e);
-        }
-    }
 
     protected void saveVisitDetails(Visit visit, String payloadType, String payloadDetails) {
         if (visit.getVisitDetails() == null) return;
@@ -406,7 +356,7 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
                 for (VisitDetail d : entry.getValue()) {
                     d.setPreProcessedJson(payloadDetails);
                     d.setPreProcessedType(payloadType);
-                    sbcLibrary.getInstance().visitDetailsRepository().addVisitDetails(d);
+                    SbcLibrary.getInstance().visitDetailsRepository().addVisitDetails(d);
                 }
             }
         }

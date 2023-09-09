@@ -1,6 +1,9 @@
 package org.smartregister.chw.sbc.util;
 
 
+import static org.smartregister.chw.sbc.util.Constants.EVENT_TYPE.DELETE_EVENT;
+import static org.smartregister.chw.sbc.util.Constants.JSON_FORM_EXTRA.DELETE_EVENT_ID;
+import static org.smartregister.chw.sbc.util.Constants.JSON_FORM_EXTRA.DELETE_FORM_SUBMISSION_ID;
 import static org.smartregister.chw.sbc.util.JsonFormUtils.HOME_VISIT_GROUP;
 
 import android.content.Context;
@@ -11,6 +14,8 @@ import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
+import org.json.JSONObject;
+import org.smartregister.chw.sbc.dao.SbcDao;
 import org.smartregister.chw.sbc.domain.Visit;
 import org.smartregister.chw.sbc.SbcLibrary;
 import org.smartregister.chw.sbc.domain.VisitDetail;
@@ -161,5 +166,37 @@ public class VisitUtils {
                     (Days.daysBetween(new DateTime(lastVisit.getDate()), new DateTime()).getDays() <= 1);
         }
         return false;
+    }
+
+    public static void deleteSavedEvent(AllSharedPreferences allSharedPreferences, String baseEntityId, String eventId, String formSubmissionId, String type) {
+        Event event = (Event) new Event()
+                .withBaseEntityId(baseEntityId)
+                .withEventDate(new Date())
+                .withEventType(DELETE_EVENT)
+                .withLocationId(JsonFormUtils.locationId(allSharedPreferences))
+                .withProviderId(allSharedPreferences.fetchRegisteredANM())
+                .withEntityType(type)
+                .withFormSubmissionId(UUID.randomUUID().toString())
+                .withDateCreated(new Date());
+
+        event.addDetails(DELETE_EVENT_ID, eventId);
+        event.addDetails(DELETE_FORM_SUBMISSION_ID, formSubmissionId);
+
+        try {
+            NCUtils.processEvent(event.getBaseEntityId(), new JSONObject(JsonFormUtils.gson.toJson(event)));
+        } catch (Exception e) {
+            Timber.e(e);
+        }
+    }
+
+    public static void deleteProcessedVisit(String visitID, String baseEntityId) {
+        // check if the event
+        AllSharedPreferences allSharedPreferences = SbcLibrary.getInstance().context().allSharedPreferences();
+        Visit visit = SbcLibrary.getInstance().visitRepository().getVisitByVisitId(visitID);
+        if (visit == null || !visit.getProcessed()) return;
+
+        Event processedEvent = SbcDao.getEventByFormSubmissionId(visit.getFormSubmissionId());
+        if (processedEvent == null) return;
+        deleteSavedEvent(allSharedPreferences, baseEntityId, processedEvent.getEventId(), processedEvent.getFormSubmissionId(), "event");
     }
 }

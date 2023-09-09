@@ -1,12 +1,18 @@
 package org.smartregister.chw.sbc.dao;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.smartregister.chw.sbc.SbcLibrary;
 import org.smartregister.chw.sbc.domain.MemberObject;
 import org.smartregister.chw.sbc.util.Constants;
+import org.smartregister.clientandeventmodel.Event;
 import org.smartregister.dao.AbstractDao;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+
+import timber.log.Timber;
 
 public class SbcDao extends AbstractDao {
     public static void closeSbcMemberFromRegister(String baseEntityID) {
@@ -15,14 +21,12 @@ public class SbcDao extends AbstractDao {
     }
 
     public static boolean isRegisteredForSbc(String baseEntityID) {
-        String sql = "SELECT count(p.base_entity_id) count FROM " + Constants.TABLES.SBC_REGISTER + " p " +
-                "WHERE p.base_entity_id = '" + baseEntityID + "' AND p.is_closed = 0";
+        String sql = "SELECT count(p.base_entity_id) count FROM " + Constants.TABLES.SBC_REGISTER + " p " + "WHERE p.base_entity_id = '" + baseEntityID + "' AND p.is_closed = 0";
 
         DataMap<Integer> dataMap = cursor -> getCursorIntValue(cursor, "count");
 
         List<Integer> res = readData(sql, dataMap);
-        if (res == null || res.size() != 1)
-            return false;
+        if (res == null || res.size() != 1) return false;
 
         return res.get(0) > 0;
     }
@@ -53,104 +57,51 @@ public class SbcDao extends AbstractDao {
             memberObject.setHivStatus(getCursorValue(cursor, "hiv_status", ""));
             memberObject.setCtcNumber(getCursorValue(cursor, "ctc_number", ""));
 
-            String familyHeadName = getCursorValue(cursor, "family_head_first_name", "") + " "
-                    + getCursorValue(cursor, "family_head_middle_name", "");
+            String familyHeadName = getCursorValue(cursor, "family_head_first_name", "") + " " + getCursorValue(cursor, "family_head_middle_name", "");
 
-            familyHeadName =
-                    (familyHeadName.trim() + " " + getCursorValue(cursor, "family_head_last_name", "")).trim();
+            familyHeadName = (familyHeadName.trim() + " " + getCursorValue(cursor, "family_head_last_name", "")).trim();
             memberObject.setFamilyHeadName(familyHeadName);
 
-            String familyPcgName = getCursorValue(cursor, "pcg_first_name", "") + " "
-                    + getCursorValue(cursor, "pcg_middle_name", "");
+            String familyPcgName = getCursorValue(cursor, "pcg_first_name", "") + " " + getCursorValue(cursor, "pcg_middle_name", "");
 
-            familyPcgName =
-                    (familyPcgName.trim() + " " + getCursorValue(cursor, "pcg_last_name", "")).trim();
+            familyPcgName = (familyPcgName.trim() + " " + getCursorValue(cursor, "pcg_last_name", "")).trim();
             memberObject.setPrimaryCareGiverName(familyPcgName);
 
             return memberObject;
         };
 
         List<MemberObject> res = readData(sql, dataMap);
-        if (res == null || res.size() != 1)
-            return null;
+        if (res == null || res.size() != 1) return null;
 
         return res.get(0);
     }
 
-    public static void updateSbcMobilization(
-            String baseEntityID,
-            String mobilizationDate,
-            String communitySbcActivityProvided,
-            String iecMaterialsDistributed,
-            String numberAudioVisualsDistributed,
-            String numberAudioDistributed,
-            String numberPrintMaterialsDistributed,
-            String pmtctIecMaterialsDistributed,
-            String numberPmtctAudioVisualsDistributedMale,
-            String numberPmtctAudioVisualsDistributedFemale,
-            String numberPmtctAudioDistributedMale,
-            String numberPmtctAudioDistributedFemale,
-            String numberPmtctPrintMaterialsDistributedMale,
-            String numberPmtctPrintMaterialsDistributedFemale
-    ) {
-        String sql = String.format("INSERT INTO " + Constants.TABLES.SBC_MOBILIZATION_SESSIONS + " (" +
-                        "id, " +
-                        "mobilization_date, " +
-                        "community_sbc_activity_provided, " +
-                        "iec_materials_distributed, " +
-                        "number_audio_visuals_distributed, " +
-                        "number_audio_distributed, " +
-                        "number_print_materials_distributed, " +
-                        "pmtct_iec_materials_distributed, " +
-                        "number_pmtct_audio_visuals_distributed_male, " +
-                        "number_pmtct_audio_visuals_distributed_female, " +
-                        "number_pmtct_audio_distributed_male, " +
-                        "number_pmtct_audio_distributed_female, " +
-                        "number_pmtct_print_materials_distributed_male, " +
-                        "number_pmtct_print_materials_distributed_female" +
-                        ") " +
-                        "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s') ON CONFLICT (id) DO UPDATE SET " +
-                        "mobilization_date = '%s', " +
-                        "community_sbc_activity_provided = '%s', " +
-                        "iec_materials_distributed = '%s', " +
-                        "number_audio_visuals_distributed = '%s', " +
-                        "number_audio_distributed = '%s', " +
-                        "number_print_materials_distributed = '%s', " +
-                        "pmtct_iec_materials_distributed = '%s', " +
-                        "number_pmtct_audio_visuals_distributed_male = '%s', " +
-                        "number_pmtct_audio_visuals_distributed_female = '%s', " +
-                        "number_pmtct_audio_distributed_male = '%s', " +
-                        "number_pmtct_audio_distributed_female = '%s', " +
-                        "number_pmtct_print_materials_distributed_male = '%s', " +
-                        "number_pmtct_print_materials_distributed_female = '%s' ",
-                        baseEntityID,
-                mobilizationDate,
-                communitySbcActivityProvided,
-                iecMaterialsDistributed,
-                numberAudioVisualsDistributed,
-                numberAudioDistributed,
-                numberPrintMaterialsDistributed,
-                pmtctIecMaterialsDistributed,
-                numberPmtctAudioVisualsDistributedMale,
-                numberPmtctAudioVisualsDistributedFemale,
-                numberPmtctAudioDistributedMale,
-                numberPmtctAudioDistributedFemale,
-                numberPmtctPrintMaterialsDistributedMale,
-                numberPmtctPrintMaterialsDistributedFemale,
-                mobilizationDate,
-                communitySbcActivityProvided,
-                iecMaterialsDistributed,
-                numberAudioVisualsDistributed,
-                numberAudioDistributed,
-                numberPrintMaterialsDistributed,
-                pmtctIecMaterialsDistributed,
-                numberPmtctAudioVisualsDistributedMale,
-                numberPmtctAudioVisualsDistributedFemale,
-                numberPmtctAudioDistributedMale,
-                numberPmtctAudioDistributedFemale,
-                numberPmtctPrintMaterialsDistributedMale,
-                numberPmtctPrintMaterialsDistributedFemale
-        );
+    public static void updateSbcMobilization(String baseEntityID, String mobilizationDate, String communitySbcActivityProvided, String iecMaterialsDistributed, String numberAudioVisualsDistributed, String numberAudioDistributed, String numberPrintMaterialsDistributed, String pmtctIecMaterialsDistributed, String numberPmtctAudioVisualsDistributedMale, String numberPmtctAudioVisualsDistributedFemale, String numberPmtctAudioDistributedMale, String numberPmtctAudioDistributedFemale, String numberPmtctPrintMaterialsDistributedMale, String numberPmtctPrintMaterialsDistributedFemale) {
+        String sql = String.format("INSERT INTO " + Constants.TABLES.SBC_MOBILIZATION_SESSIONS + " (" + "id, " + "mobilization_date, " + "community_sbc_activity_provided, " + "iec_materials_distributed, " + "number_audio_visuals_distributed, " + "number_audio_distributed, " + "number_print_materials_distributed, " + "pmtct_iec_materials_distributed, " + "number_pmtct_audio_visuals_distributed_male, " + "number_pmtct_audio_visuals_distributed_female, " + "number_pmtct_audio_distributed_male, " + "number_pmtct_audio_distributed_female, " + "number_pmtct_print_materials_distributed_male, " + "number_pmtct_print_materials_distributed_female" + ") " + "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s') ON CONFLICT (id) DO UPDATE SET " + "mobilization_date = '%s', " + "community_sbc_activity_provided = '%s', " + "iec_materials_distributed = '%s', " + "number_audio_visuals_distributed = '%s', " + "number_audio_distributed = '%s', " + "number_print_materials_distributed = '%s', " + "pmtct_iec_materials_distributed = '%s', " + "number_pmtct_audio_visuals_distributed_male = '%s', " + "number_pmtct_audio_visuals_distributed_female = '%s', " + "number_pmtct_audio_distributed_male = '%s', " + "number_pmtct_audio_distributed_female = '%s', " + "number_pmtct_print_materials_distributed_male = '%s', " + "number_pmtct_print_materials_distributed_female = '%s' ", baseEntityID, mobilizationDate, communitySbcActivityProvided, iecMaterialsDistributed, numberAudioVisualsDistributed, numberAudioDistributed, numberPrintMaterialsDistributed, pmtctIecMaterialsDistributed, numberPmtctAudioVisualsDistributedMale, numberPmtctAudioVisualsDistributedFemale, numberPmtctAudioDistributedMale, numberPmtctAudioDistributedFemale, numberPmtctPrintMaterialsDistributedMale, numberPmtctPrintMaterialsDistributedFemale, mobilizationDate, communitySbcActivityProvided, iecMaterialsDistributed, numberAudioVisualsDistributed, numberAudioDistributed, numberPrintMaterialsDistributed, pmtctIecMaterialsDistributed, numberPmtctAudioVisualsDistributedMale, numberPmtctAudioVisualsDistributedFemale, numberPmtctAudioDistributedMale, numberPmtctAudioDistributedFemale, numberPmtctPrintMaterialsDistributedMale, numberPmtctPrintMaterialsDistributedFemale);
         updateDB(sql);
+    }
+
+    public static void updateSbcSocialMediaMonthlyReport(String baseEntityID, String reportingMonth, String organizationName, String otherOrganizationName, String socialMediaHivMsgDistribution, String numberBeneficiariesReachedFacebook, String numberMessagesPublications, String numberAiredMessagesBroadcasted) {
+        String sql = String.format("INSERT INTO " + Constants.TABLES.SBC_MONTHLY_SOCIAL_MEDIA_REPORT + " (" + "id, " + "reporting_month, " + "organization_name, " + "other_organization_name, " + "social_media_hiv_msg_distribution, " + "number_beneficiaries_reached_facebook, " + "number_messages_publications, " + "number_aired_messages_broadcasted "  + ") " + "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s') ON CONFLICT (id) DO UPDATE SET " +
+                "reporting_month = '%s', " + "organization_name = '%s', " + "other_organization_name = '%s', " + "social_media_hiv_msg_distribution = '%s', " + "number_beneficiaries_reached_facebook = '%s', " + "number_messages_publications = '%s', " + "number_aired_messages_broadcasted = '%s' ",
+                baseEntityID, reportingMonth, organizationName, otherOrganizationName, socialMediaHivMsgDistribution, numberBeneficiariesReachedFacebook, numberMessagesPublications, numberAiredMessagesBroadcasted,
+                reportingMonth, organizationName, otherOrganizationName, socialMediaHivMsgDistribution, numberBeneficiariesReachedFacebook, numberMessagesPublications, numberAiredMessagesBroadcasted);
+        updateDB(sql);
+    }
+
+    public static Event getEventByFormSubmissionId(String formSubmissionId) {
+        String sql = "select json from event where formSubmissionId = '" + formSubmissionId + "'";
+        DataMap<Event> dataMap = (c) -> {
+            Event event;
+            try {
+                event = (Event) SbcLibrary.getInstance().getEcSyncHelper().convert(new JSONObject(getCursorValue(c, "json")), Event.class);
+            } catch (JSONException e) {
+                Timber.e(e);
+                return null;
+            }
+
+            return event;
+        };
+        return (Event) AbstractDao.readSingleValue(sql, dataMap);
     }
 }
