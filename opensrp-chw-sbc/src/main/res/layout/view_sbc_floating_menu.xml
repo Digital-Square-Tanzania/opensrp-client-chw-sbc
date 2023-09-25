@@ -16,7 +16,7 @@
         android:visibility="invisible">
 
         <RelativeLayout
-            android:id="@+id/call_layout"
+            android:id="@+id/sbc_call_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -72,7 +72,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/refer_to_facility_layout"
+            android:id="@+id/sbc_refer_to_facility_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
