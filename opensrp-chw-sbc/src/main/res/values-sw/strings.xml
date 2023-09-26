@@ -13,8 +13,8 @@
     <string name="record_sbc">Rekodi ufuatiliaji wa SBC</string>
     <string name="return_to_previous_sbc_clients_page">Rudi kwenye wateja wote wa malaria</string>
     <string name="last_visit_40_days_ago">Tembeleo la mwisho %1$s uliyopita</string>
-    <string name="view_medical_history">Angalia historia ya huduma</string>
-    <string name="medical_history">Historia ya huduma</string>
+    <string name="view_sbc_followp_history">Angalia historia ya huduma</string>
+    <string name="sbc_followup_history">Historia ya huduma</string>
     <string name="call_no_number_provided">(Hakuna namba iliyotolewa)</string>
     <string name="family_has_nothing_due">Muda wa huduma kwenye kaya haujafika</string>
     <string name="go_to_family_s_profile">Rudi kwenye taarifa ya kaya</string>
