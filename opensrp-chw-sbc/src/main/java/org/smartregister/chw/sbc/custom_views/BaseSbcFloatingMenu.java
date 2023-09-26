@@ -31,7 +31,7 @@ public class BaseSbcFloatingMenu extends LinearLayout implements View.OnClickLis
         if (view.getId() == R.id.sbc_fab) {
             Activity activity = (Activity) getContext();
             BaseSbcCallDialogFragment.launchDialog(activity, MEMBER_OBJECT);
-        }  else if (view.getId() == R.id.refer_to_facility_layout) {
+        }  else if (view.getId() == R.id.sbc_refer_to_facility_layout) {
             Activity activity = (Activity) getContext();
             BaseSbcCallDialogFragment.launchDialog(activity, MEMBER_OBJECT);
         }
