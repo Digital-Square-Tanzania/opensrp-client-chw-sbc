@@ -11,7 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
 import org.smartregister.chw.sbc.R;
 import org.smartregister.chw.sbc.SbcLibrary;
-import org.smartregister.chw.sbc.actionhelper.ArtAndCondomEducationActionHelper;
+import org.smartregister.chw.sbc.actionhelper.ArtAdherenceCounsellingActionHelper;
 import org.smartregister.chw.sbc.actionhelper.CommentsActionHelper;
 import org.smartregister.chw.sbc.actionhelper.HealthEducationActionHelper;
 import org.smartregister.chw.sbc.actionhelper.HealthEducationOnHivInterventionsActionHelper;
@@ -112,7 +112,10 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
                 evaluateHealthEducation(memberObject, details);
                 evaluateHealthEducationOnHivInterventions(memberObject, details);
                 evaluateHealthEducationSbcMaterials(memberObject, details);
-                evaluateArtAndCondomEducation(memberObject, details);
+
+                if (memberObject.getHivStatus().contains("positive"))
+                    evaluateArtAdherenceCounselling(memberObject, details);
+
                 evaluateComments(memberObject, details);
 
             } catch (BaseSbcVisitAction.ValidationException e) {
@@ -175,8 +178,8 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
         actionList.put(actionName, action);
     }
 
-    protected void evaluateArtAndCondomEducation(MemberObject memberObject, Map<String, List<VisitDetail>> details) throws BaseSbcVisitAction.ValidationException {
-        SbcVisitActionHelper actionHelper = new ArtAndCondomEducationActionHelper(mContext, memberObject);
+    protected void evaluateArtAdherenceCounselling(MemberObject memberObject, Map<String, List<VisitDetail>> details) throws BaseSbcVisitAction.ValidationException {
+        SbcVisitActionHelper actionHelper = new ArtAdherenceCounsellingActionHelper(mContext, memberObject);
 
         String actionName = mContext.getString(R.string.sbc_visit_action_title_art_and_condom_education);
 

@@ -13,12 +13,12 @@ import timber.log.Timber;
 /**
  * SBC Activity Action Helper
  */
-public class ArtAndCondomEducationActionHelper extends SbcVisitActionHelper {
+public class ArtAdherenceCounsellingActionHelper extends SbcVisitActionHelper {
     protected Context context;
     protected MemberObject memberObject;
     protected String sbcArtAdherence;
 
-    public ArtAndCondomEducationActionHelper(Context context, MemberObject memberObject) {
+    public ArtAdherenceCounsellingActionHelper(Context context, MemberObject memberObject) {
         this.context = context;
         this.memberObject = memberObject;
     }
