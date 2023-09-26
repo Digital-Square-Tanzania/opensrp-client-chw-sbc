@@ -190,7 +190,7 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
 
         String actionName = mContext.getString(R.string.sbc_visit_action_title_comments);
 
-        BaseSbcVisitAction action = getBuilder(actionName).withOptional(false).withDetails(details).withHelper(actionHelper).withFormName(Constants.FORMS.SBC_COMMENTS).build();
+        BaseSbcVisitAction action = getBuilder(actionName).withOptional(true).withDetails(details).withHelper(actionHelper).withFormName(Constants.FORMS.SBC_COMMENTS).build();
 
         actionList.put(actionName, action);
     }
