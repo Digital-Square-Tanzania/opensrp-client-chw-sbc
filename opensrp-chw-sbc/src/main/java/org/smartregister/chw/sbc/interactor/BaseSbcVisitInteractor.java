@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.Nullable;
+import org.json.JSONObject;
 import org.smartregister.chw.sbc.R;
 import org.smartregister.chw.sbc.SbcLibrary;
 import org.smartregister.chw.sbc.actionhelper.ArtAdherenceCounsellingActionHelper;
@@ -55,6 +56,8 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
     private Context mContext;
     private Map<String, List<VisitDetail>> details = null;
 
+    private BaseSbcVisitContract.InteractorCallBack callBack;
+
     @VisibleForTesting
     public BaseSbcVisitInteractor(AppExecutors appExecutors, SbcLibrary SbcLibrary, ECSyncHelper syncHelper) {
         this.appExecutors = appExecutors;
@@ -97,16 +100,23 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
     @Override
     public void calculateActions(final BaseSbcVisitContract.View view, MemberObject memberObject, final BaseSbcVisitContract.InteractorCallBack callBack) {
         mContext = view.getContext();
+        this.callBack = callBack;
+        boolean isFirstVisit;
         if (view.getEditMode()) {
             Visit lastVisit = sbcLibrary.visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.SBC_FOLLOW_UP_VISIT);
-
+            isFirstVisit = sbcLibrary.visitRepository().getVisits(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.SBC_FOLLOW_UP_VISIT).size() < 2;
             if (lastVisit != null) {
                 details = VisitUtils.getVisitGroups(sbcLibrary.visitDetailsRepository().getVisits(lastVisit.getVisitId()));
             }
+        } else {
+            isFirstVisit = sbcLibrary.visitRepository().getLatestVisit(memberObject.getBaseEntityId(), Constants.EVENT_TYPE.SBC_FOLLOW_UP_VISIT) == null;
         }
 
         final Runnable runnable = () -> {
             try {
+                if (!isFirstVisit && !memberObject.getHivStatus().contains("positive"))
+                    evaluateHivStatus(memberObject, details);
+
                 evaluateSbcActivity(memberObject, details);
                 evaluateServicesSurvey(memberObject, details);
                 evaluateHealthEducation(memberObject, details);
@@ -126,6 +136,13 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
         };
 
         appExecutors.diskIO().execute(runnable);
+    }
+
+    protected void evaluateHivStatus(MemberObject memberObject, Map<String, List<VisitDetail>> details) throws BaseSbcVisitAction.ValidationException {
+        SbcVisitActionHelper actionHelper = new HivStatusActionHelper(mContext, memberObject);
+        String actionName = mContext.getString(R.string.sbc_visit_action_title_hiv_status);
+        BaseSbcVisitAction action = getBuilder(actionName).withOptional(false).withDetails(details).withHelper(actionHelper).withFormName(Constants.FORMS.SBC_ENROLLMENT).build();
+        actionList.put(actionName, action);
     }
 
     protected void evaluateSbcActivity(MemberObject memberObject, Map<String, List<VisitDetail>> details) throws BaseSbcVisitAction.ValidationException {
@@ -394,6 +411,58 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
 
     protected String getTableName() {
         return Constants.TABLES.SBC_REGISTER;
+    }
+
+    class HivStatusActionHelper extends SbcVisitActionHelper {
+        protected Context context;
+        protected MemberObject memberObject;
+        protected String hivStatus;
+
+        public HivStatusActionHelper(Context context, MemberObject memberObject) {
+            this.context = context;
+            this.memberObject = memberObject;
+        }
+
+        /**
+         * set preprocessed status to be inert
+         *
+         * @return null
+         */
+        @Override
+        public String getPreProcessed() {
+            return null;
+        }
+
+        @Override
+        public void onPayloadReceived(String jsonPayload) {
+            try {
+                JSONObject jsonObject = new JSONObject(jsonPayload);
+                hivStatus = JsonFormUtils.getValue(jsonObject, "hiv_status");
+
+                if(hivStatus.contains("positive")){
+                    evaluateArtAdherenceCounselling(memberObject, details);
+                }else{
+                    actionList.remove(mContext.getString(R.string.sbc_visit_action_title_art_and_condom_education));
+                }
+                appExecutors.mainThread().execute(() -> callBack.preloadActions(actionList));
+            } catch (Exception e) {
+                Timber.e(e);
+            }
+        }
+
+        @Override
+        public String evaluateSubTitle() {
+            return null;
+        }
+
+        @Override
+        public BaseSbcVisitAction.Status evaluateStatusOnPayload() {
+            if (StringUtils.isNotBlank(hivStatus)) {
+                return BaseSbcVisitAction.Status.COMPLETED;
+            } else {
+                return BaseSbcVisitAction.Status.PENDING;
+            }
+        }
     }
 
 }

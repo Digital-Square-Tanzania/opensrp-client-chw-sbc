@@ -54,6 +54,7 @@
     <string name="error_unable_save_home_visit">unable to save home visit</string>
     <string name="optional">optional</string>
     <string name="sbc_visit">sbc visit</string>
+    <string name="sbc_visit_action_title_hiv_status">HIV Status</string>
     <string name="sbc_visit_action_title_sbc_activity">SBC Activity</string>
     <string name="sbc_visit_action_title_services_survey">Services Survey</string>
     <string name="sbc_visit_action_title_health_education">Health Education</string>

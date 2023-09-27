@@ -3,6 +3,7 @@ package org.smartregister.chw.sbc.activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -118,8 +119,38 @@ public class BaseSbcVisitActivity extends SecuredActivity implements BaseSbcVisi
 
     @Override
     public void initializeActions(LinkedHashMap<String, BaseSbcVisitAction> map) {
+        //Necessary evil to rearrange the actions according to a specific arrangement
+        if (map.containsKey(getString(R.string.sbc_visit_action_title_hiv_status))) {
+            actionList.put(getString(R.string.sbc_visit_action_title_hiv_status), map.get(getString(R.string.sbc_visit_action_title_hiv_status)));
+        }
+
+        if (map.containsKey(getString(R.string.sbc_visit_action_title_sbc_activity))) {
+            actionList.put(getString(R.string.sbc_visit_action_title_sbc_activity), map.get(getString(R.string.sbc_visit_action_title_sbc_activity)));
+        }
+
+        if (map.containsKey(getString(R.string.sbc_visit_action_title_services_survey))) {
+            actionList.put(getString(R.string.sbc_visit_action_title_services_survey), map.get(getString(R.string.sbc_visit_action_title_services_survey)));
+        }
+
+        if (map.containsKey(getString(R.string.sbc_visit_action_title_health_education))) {
+            actionList.put(getString(R.string.sbc_visit_action_title_health_education), map.get(getString(R.string.sbc_visit_action_title_health_education)));
+        }
+
+        if (map.containsKey(getString(R.string.sbc_visit_action_title_art_and_condom_education))) {
+            actionList.put(getString(R.string.sbc_visit_action_title_art_and_condom_education), map.get(getString(R.string.sbc_visit_action_title_art_and_condom_education)));
+        }
+
+        if (map.containsKey(getString(R.string.sbc_visit_action_title_comments))) {
+            actionList.put(getString(R.string.sbc_visit_action_title_comments), map.get(getString(R.string.sbc_visit_action_title_comments)));
+        }
+        //====================End of Necessary evil ====================================
+
+
+
         for (Map.Entry<String, BaseSbcVisitAction> entry : map.entrySet()) {
-            actionList.put(entry.getKey(), entry.getValue());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                actionList.putIfAbsent(entry.getKey(), entry.getValue());
+            }
         }
         if (mAdapter != null) {
             mAdapter.notifyDataSetChanged();
