@@ -141,7 +141,7 @@ public class BaseSbcVisitInteractor implements BaseSbcVisitContract.Interactor {
     protected void evaluateHivStatus(MemberObject memberObject, Map<String, List<VisitDetail>> details) throws BaseSbcVisitAction.ValidationException {
         SbcVisitActionHelper actionHelper = new HivStatusActionHelper(mContext, memberObject);
         String actionName = mContext.getString(R.string.sbc_visit_action_title_hiv_status);
-        BaseSbcVisitAction action = getBuilder(actionName).withOptional(false).withDetails(details).withHelper(actionHelper).withFormName(Constants.FORMS.SBC_ENROLLMENT).build();
+        BaseSbcVisitAction action = getBuilder(actionName).withOptional(false).withDetails(details).withHelper(actionHelper).withFormName(Constants.FORMS.SBC_HIV_STATUS).build();
         actionList.put(actionName, action);
     }
 

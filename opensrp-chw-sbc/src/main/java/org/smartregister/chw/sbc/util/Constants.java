@@ -31,6 +31,7 @@ public interface Constants {
 
     interface FORMS {
         String SBC_ENROLLMENT = "sbc_enrollment";
+        String SBC_HIV_STATUS = "sbc_hiv_status";
         String SBC_ACTIVITY = "sbc_activity";
         String SBC_HEALTH_EDUCATION = "sbc_health_education";
         String SBC_HEALTH_EDUCATION_ON_HIV = "sbc_health_education_hiv_intervention";
