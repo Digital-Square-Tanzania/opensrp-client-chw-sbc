@@ -136,6 +136,14 @@ public class BaseSbcVisitActivity extends SecuredActivity implements BaseSbcVisi
             actionList.put(getString(R.string.sbc_visit_action_title_health_education), map.get(getString(R.string.sbc_visit_action_title_health_education)));
         }
 
+        if (map.containsKey(getString(R.string.sbc_visit_action_title_health_education_on_hiv_interventions))) {
+            actionList.put(getString(R.string.sbc_visit_action_title_health_education_on_hiv_interventions), map.get(getString(R.string.sbc_visit_action_title_health_education_on_hiv_interventions)));
+        }
+
+        if (map.containsKey(getString(R.string.sbc_visit_action_title_health_education_sbc_materials))) {
+            actionList.put(getString(R.string.sbc_visit_action_title_health_education_sbc_materials), map.get(getString(R.string.sbc_visit_action_title_health_education_sbc_materials)));
+        }
+
         if (map.containsKey(getString(R.string.sbc_visit_action_title_art_and_condom_education))) {
             actionList.put(getString(R.string.sbc_visit_action_title_art_and_condom_education), map.get(getString(R.string.sbc_visit_action_title_art_and_condom_education)));
         }
