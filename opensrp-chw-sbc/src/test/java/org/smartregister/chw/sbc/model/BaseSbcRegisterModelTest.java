@@ -1,4 +1,4 @@
-package org.smartregister.chw.sbc_sample.model;
+package org.smartregister.chw.sbc.model;
 
 import org.json.JSONObject;
 import org.junit.Assert;
@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.smartregister.chw.sbc.model.BaseSbcRegisterModel;
 
 public class BaseSbcRegisterModelTest {
 

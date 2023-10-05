@@ -1,4 +1,4 @@
-package org.smartregister.chw.sbc_sample.presenter;
+package org.smartregister.chw.sbc.presenter;
 
 import org.junit.Assert;
 import org.junit.Before;

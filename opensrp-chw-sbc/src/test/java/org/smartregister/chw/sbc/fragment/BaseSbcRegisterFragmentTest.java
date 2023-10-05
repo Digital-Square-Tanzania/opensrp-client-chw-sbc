@@ -1,4 +1,4 @@
-package org.smartregister.chw.sbc_sample.fragment;
+package org.smartregister.chw.sbc.fragment;
 
 import org.junit.Before;
 import org.junit.Test;
