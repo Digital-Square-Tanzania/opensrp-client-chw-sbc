@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:3.5.4'
     }
 }
 
@@ -19,7 +19,7 @@ plugins {
 description = 'OpenSRP CHW SBC library'
 
 jacoco {
-    toolVersion = "0.8.0"
+    toolVersion = "0.8.10"
 }
 
 android {
@@ -83,7 +83,9 @@ tasks.withType(Test) {
 }
 
 def githubProperties = new Properties()
-githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
+if (rootProject.file("github.properties").exists()) {
+    githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
+}
 
 def getVersionName = { ->
     return VERSION_NAME // Library version

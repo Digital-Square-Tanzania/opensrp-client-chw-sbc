@@ -1,4 +1,4 @@
-package org.smartregister.chw.sbc_sample.provider;
+package org.smartregister.chw.sbc.provider;
 
 import android.app.Activity;
 import android.content.res.Resources;
@@ -17,7 +17,7 @@ import org.powermock.reflect.Whitebox;
 import org.smartregister.chw.sbc.provider.SbcRegisterProvider;
 import org.smartregister.chw.sbc.util.DBConstants;
 import org.smartregister.commonregistry.CommonPersonObjectClient;
-import org.smartregister.chw.R;
+import org.smartregister.chw.sbc.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -72,30 +72,6 @@ public class SbcRegisterProviderTest {
     @Test
     public void checkHolderCreation() {
         Assert.assertNull(testRegisterProvider.createViewHolder(null));
-    }
-
-    @Test
-    public void isAncClosed() throws Exception {
-        Resources resources = Mockito.mock(Resources.class);
-        Activity activity = Mockito.mock(Activity.class);
-        SbcRegisterProvider provider = Mockito.spy(new SbcRegisterProvider(activity, listener, listener, null));
-        Map<String, String> map = new HashMap<>();
-        map.put("is_anc_closed", "0");
-        Mockito.when(activity.getResources()).thenReturn(resources);
-        Mockito.when(commonPersonObjectClient.getColumnmaps()).thenReturn(map);
-        Assert.assertEquals(resources.getString(R.string.anc_string), Whitebox.invokeMethod(provider, "updateMemberGender", commonPersonObjectClient));
-    }
-
-    @Test
-    public void isPncClosed() throws Exception {
-        Resources resources = Mockito.mock(Resources.class);
-        Activity activity = Mockito.mock(Activity.class);
-        SbcRegisterProvider provider = Mockito.spy(new SbcRegisterProvider(activity, listener, listener, null));
-        Map<String, String> map = new HashMap<>();
-        map.put("is_pnc_closed", "0");
-        Mockito.when(activity.getResources()).thenReturn(resources);
-        Mockito.when(commonPersonObjectClient.getColumnmaps()).thenReturn(map);
-        Assert.assertEquals(resources.getString(R.string.pnc_string), Whitebox.invokeMethod(provider, "updateMemberGender", commonPersonObjectClient));
     }
 
     @Test

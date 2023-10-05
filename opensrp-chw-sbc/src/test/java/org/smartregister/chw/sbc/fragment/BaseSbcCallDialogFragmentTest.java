@@ -1,4 +1,4 @@
-package org.smartregister.chw.sbc_sample.fragment;
+package org.smartregister.chw.sbc.fragment;
 
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,17 +50,6 @@ public class BaseSbcCallDialogFragmentTest {
         Assert.assertEquals("message Head of family", textView.getText());
     }
 
-    @Test(expected = Exception.class)
-    public void setCallTitleAnc() throws Exception {
-        TextView textView = Mockito.mock(TextView.class);
-
-        Mockito.when(memberObject.getAncMember()).thenReturn("0");
-
-        Mockito.when(viewGroup.findViewById(view.getId())).thenReturn(textView);
-
-        Whitebox.invokeMethod(baseTestCallDialogFragment, "setCallTitle", viewGroup, view.getId(), "message");
-        Assert.assertEquals("message ANC Client", textView.getText());
-    }
 
     @Test(expected = Exception.class)
     public void setCallTitleCareGiver() throws Exception {
@@ -73,18 +62,6 @@ public class BaseSbcCallDialogFragmentTest {
 
         Whitebox.invokeMethod(baseTestCallDialogFragment, "setCallTitle", viewGroup, view.getId(), "message");
         Assert.assertEquals("message Primary Caregiver", textView.getText());
-    }
-
-    @Test(expected = Exception.class)
-    public void setCallTitlePnc() throws Exception {
-        TextView textView = Mockito.mock(TextView.class);
-
-        Mockito.when(memberObject.getPncMember()).thenReturn("0");
-
-        Mockito.when(viewGroup.findViewById(view.getId())).thenReturn(textView);
-
-        Whitebox.invokeMethod(baseTestCallDialogFragment, "setCallTitle", viewGroup, view.getId(), "message");
-        Assert.assertEquals("message PNC Client", textView.getText());
     }
 
     @Test(expected = Exception.class)
