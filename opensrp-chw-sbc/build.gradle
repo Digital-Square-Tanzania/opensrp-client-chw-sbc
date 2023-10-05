@@ -83,7 +83,9 @@ tasks.withType(Test) {
 }
 
 def githubProperties = new Properties()
-githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
+if (rootProject.file("github.properties").exists()) {
+    githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
+}
 
 def getVersionName = { ->
     return VERSION_NAME // Library version

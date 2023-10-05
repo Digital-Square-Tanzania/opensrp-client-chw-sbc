@@ -38,7 +38,7 @@ public class BaseSbcRegisterFragmentPresenterTest {
 
     @Test
     public void getMainCondition() {
-        Assert.assertEquals("", baseSbcRegisterFragmentPresenter.getMainCondition());
+        Assert.assertEquals("ec_sbc_register.is_closed is 0", baseSbcRegisterFragmentPresenter.getMainCondition());
     }
 
     @Test
@@ -60,8 +60,8 @@ public class BaseSbcRegisterFragmentPresenterTest {
     public void initializeQueries() {
         Set<View> visibleColumns = new TreeSet<>();
         baseSbcRegisterFragmentPresenter.initializeQueries(null);
-        Mockito.doNothing().when(view).initializeQueryParams("ec_malaria_confirmation", null, null);
-        Mockito.verify(view).initializeQueryParams("ec_malaria_confirmation", null, null);
+        Mockito.doNothing().when(view).initializeQueryParams("ec_sbc_register", null, null);
+        Mockito.verify(view).initializeQueryParams("ec_sbc_register", null, null);
         Mockito.verify(view).initializeAdapter(visibleColumns);
         Mockito.verify(view).countExecute();
         Mockito.verify(view).filterandSortInInitializeQueries();
