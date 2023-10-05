@@ -76,14 +76,21 @@ public class SbcDao extends AbstractDao {
         return res.get(0);
     }
 
-    public static void updateSbcMobilization(String baseEntityID, String mobilizationDate, String communitySbcActivityProvided, String otherInterventionsIecMaterialsDistributed, String numberAudioVisualsDistributed, String numberAudioDistributed, String numberPrintMaterialsDistributed, String pmtctIecMaterialsDistributed, String numberPmtctAudioVisualsDistributedMale, String numberPmtctAudioVisualsDistributedFemale, String numberPmtctAudioDistributedMale, String numberPmtctAudioDistributedFemale, String numberPmtctPrintMaterialsDistributedMale, String numberPmtctPrintMaterialsDistributedFemale) {
-        String sql = String.format("INSERT INTO " + Constants.TABLES.SBC_MOBILIZATION_SESSIONS + " (" + "id, " + "mobilization_date, " + "community_sbc_activity_provided, " + "other_interventions_iec_materials_distributed, " + "number_audio_visuals_distributed, " + "number_audio_distributed, " + "number_print_materials_distributed, " + "pmtct_iec_materials_distributed, " + "number_pmtct_audio_visuals_distributed_male, " + "number_pmtct_audio_visuals_distributed_female, " + "number_pmtct_audio_distributed_male, " + "number_pmtct_audio_distributed_female, " + "number_pmtct_print_materials_distributed_male, " + "number_pmtct_print_materials_distributed_female" + ") " + "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s') ON CONFLICT (id) DO UPDATE SET " + "mobilization_date = '%s', " + "community_sbc_activity_provided = '%s', " + "other_interventions_iec_materials_distributed = '%s', " + "number_audio_visuals_distributed = '%s', " + "number_audio_distributed = '%s', " + "number_print_materials_distributed = '%s', " + "pmtct_iec_materials_distributed = '%s', " + "number_pmtct_audio_visuals_distributed_male = '%s', " + "number_pmtct_audio_visuals_distributed_female = '%s', " + "number_pmtct_audio_distributed_male = '%s', " + "number_pmtct_audio_distributed_female = '%s', " + "number_pmtct_print_materials_distributed_male = '%s', " + "number_pmtct_print_materials_distributed_female = '%s' ", baseEntityID, mobilizationDate, communitySbcActivityProvided, otherInterventionsIecMaterialsDistributed, numberAudioVisualsDistributed, numberAudioDistributed, numberPrintMaterialsDistributed, pmtctIecMaterialsDistributed, numberPmtctAudioVisualsDistributedMale, numberPmtctAudioVisualsDistributedFemale, numberPmtctAudioDistributedMale, numberPmtctAudioDistributedFemale, numberPmtctPrintMaterialsDistributedMale, numberPmtctPrintMaterialsDistributedFemale, mobilizationDate, communitySbcActivityProvided, otherInterventionsIecMaterialsDistributed, numberAudioVisualsDistributed, numberAudioDistributed, numberPrintMaterialsDistributed, pmtctIecMaterialsDistributed, numberPmtctAudioVisualsDistributedMale, numberPmtctAudioVisualsDistributedFemale, numberPmtctAudioDistributedMale, numberPmtctAudioDistributedFemale, numberPmtctPrintMaterialsDistributedMale, numberPmtctPrintMaterialsDistributedFemale);
+    public static void updateSbcMobilization(SbcMobilization sbcMobilization) {
+        String sql = String.format("INSERT INTO " + Constants.TABLES.SBC_MOBILIZATION_SESSIONS + " (" + "id, " + "mobilization_date, " + "community_sbc_activity_provided, " + "other_interventions_iec_materials_distributed, " + "number_audio_visuals_distributed, " + "number_audio_distributed, " + "number_print_materials_distributed, " + "pmtct_iec_materials_distributed, " + "number_pmtct_audio_visuals_distributed_male, " + "number_pmtct_audio_visuals_distributed_female, " + "number_pmtct_audio_distributed_male, " + "number_pmtct_audio_distributed_female, " + "number_pmtct_print_materials_distributed_male, " + "number_pmtct_print_materials_distributed_female" + ") " + "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s') ON CONFLICT (id) DO UPDATE SET " + "mobilization_date = '%s', " + "community_sbc_activity_provided = '%s', " + "other_interventions_iec_materials_distributed = '%s', " + "number_audio_visuals_distributed = '%s', " + "number_audio_distributed = '%s', " + "number_print_materials_distributed = '%s', " + "pmtct_iec_materials_distributed = '%s', " + "number_pmtct_audio_visuals_distributed_male = '%s', " + "number_pmtct_audio_visuals_distributed_female = '%s', " + "number_pmtct_audio_distributed_male = '%s', " + "number_pmtct_audio_distributed_female = '%s', " + "number_pmtct_print_materials_distributed_male = '%s', " + "number_pmtct_print_materials_distributed_female = '%s' ", sbcMobilization.getBaseEntityID(), sbcMobilization.getMobilizationDate(), sbcMobilization.getCommunitySbcActivityProvided() , sbcMobilization.getOtherInterventionsIecMaterialsDistributed(),sbcMobilization.getNumberAudioVisualsDistributed(), sbcMobilization.getNumberAudioDistributed(), sbcMobilization.getNumberPrintMaterialsDistributed(), sbcMobilization.getPmtctIecMaterialsDistributed(), sbcMobilization.getNumberPmtctAudioVisualsDistributedMale(), sbcMobilization.getNumberPmtctAudioVisualsDistributedFemale(), sbcMobilization.getNumberPmtctAudioDistributedMale(),
+                sbcMobilization.getNumberPmtctAudioDistributedFemale(), sbcMobilization.getNumberPmtctPrintMaterialsDistributedMale(),
+                sbcMobilization.getNumberPmtctPrintMaterialsDistributedFemale(),
+                sbcMobilization.getMobilizationDate(), sbcMobilization.getCommunitySbcActivityProvided(),
+                sbcMobilization.getOtherInterventionsIecMaterialsDistributed(), sbcMobilization.getNumberAudioVisualsDistributed(),
+                sbcMobilization.getNumberAudioDistributed(), sbcMobilization.getNumberPrintMaterialsDistributed(), sbcMobilization.getPmtctIecMaterialsDistributed(), sbcMobilization.getNumberPmtctAudioVisualsDistributedMale(),
+                sbcMobilization.getNumberPmtctAudioVisualsDistributedFemale(), sbcMobilization.getNumberPmtctAudioDistributedMale(), sbcMobilization.getNumberPmtctAudioDistributedFemale(),
+                sbcMobilization.getNumberPmtctPrintMaterialsDistributedMale(), sbcMobilization.getNumberPmtctPrintMaterialsDistributedFemale());
         updateDB(sql);
     }
 
     public static void updateSbcSocialMediaMonthlyReport(String baseEntityID, String reportingMonth, String organizationName, String otherOrganizationName, String socialMediaHivMsgDistribution, String numberBeneficiariesReachedFacebook, String numberMessagesPublications, String numberAiredMessagesBroadcasted) {
-        String sql = String.format("INSERT INTO " + Constants.TABLES.SBC_MONTHLY_SOCIAL_MEDIA_REPORT + " (" + "id, " + "reporting_month, " + "organization_name, " + "other_organization_name, " + "social_media_hiv_msg_distribution, " + "number_beneficiaries_reached_facebook, " + "number_messages_publications, " + "number_aired_messages_broadcasted "  + ") " + "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s') ON CONFLICT (id) DO UPDATE SET " +
-                "reporting_month = '%s', " + "organization_name = '%s', " + "other_organization_name = '%s', " + "social_media_hiv_msg_distribution = '%s', " + "number_beneficiaries_reached_facebook = '%s', " + "number_messages_publications = '%s', " + "number_aired_messages_broadcasted = '%s' ",
+        String sql = String.format("INSERT INTO " + Constants.TABLES.SBC_MONTHLY_SOCIAL_MEDIA_REPORT + " (" + "id, " + "reporting_month, " + "organization_name, " + "other_organization_name, " + "social_media_hiv_msg_distribution, " + "number_beneficiaries_reached_facebook, " + "number_messages_publications, " + "number_aired_messages_broadcasted " + ") " + "VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s') ON CONFLICT (id) DO UPDATE SET " +
+                        "reporting_month = '%s', " + "organization_name = '%s', " + "other_organization_name = '%s', " + "social_media_hiv_msg_distribution = '%s', " + "number_beneficiaries_reached_facebook = '%s', " + "number_messages_publications = '%s', " + "number_aired_messages_broadcasted = '%s' ",
                 baseEntityID, reportingMonth, organizationName, otherOrganizationName, socialMediaHivMsgDistribution, numberBeneficiariesReachedFacebook, numberMessagesPublications, numberAiredMessagesBroadcasted,
                 reportingMonth, organizationName, otherOrganizationName, socialMediaHivMsgDistribution, numberBeneficiariesReachedFacebook, numberMessagesPublications, numberAiredMessagesBroadcasted);
         updateDB(sql);
@@ -103,5 +110,147 @@ public class SbcDao extends AbstractDao {
             return event;
         };
         return (Event) AbstractDao.readSingleValue(sql, dataMap);
+    }
+
+    public static class SbcMobilization {
+        private String baseEntityID;
+
+        private String mobilizationDate;
+
+        private String communitySbcActivityProvided;
+
+        private String otherInterventionsIecMaterialsDistributed;
+
+        private String numberAudioVisualsDistributed;
+
+        private String numberAudioDistributed;
+
+        private String numberPrintMaterialsDistributed;
+
+        private String pmtctIecMaterialsDistributed;
+
+        private String numberPmtctAudioVisualsDistributedMale;
+
+        private String numberPmtctAudioVisualsDistributedFemale;
+
+        private String numberPmtctAudioDistributedMale;
+
+        private String numberPmtctAudioDistributedFemale;
+
+        private String numberPmtctPrintMaterialsDistributedMale;
+
+        private String numberPmtctPrintMaterialsDistributedFemale;
+
+        public String getBaseEntityID() {
+            return baseEntityID;
+        }
+
+        public void setBaseEntityID(String baseEntityID) {
+            this.baseEntityID = baseEntityID;
+        }
+
+        public String getMobilizationDate() {
+            return mobilizationDate;
+        }
+
+        public void setMobilizationDate(String mobilizationDate) {
+            this.mobilizationDate = mobilizationDate;
+        }
+
+        public String getCommunitySbcActivityProvided() {
+            return communitySbcActivityProvided;
+        }
+
+        public void setCommunitySbcActivityProvided(String communitySbcActivityProvided) {
+            this.communitySbcActivityProvided = communitySbcActivityProvided;
+        }
+
+        public String getOtherInterventionsIecMaterialsDistributed() {
+            return otherInterventionsIecMaterialsDistributed;
+        }
+
+        public void setOtherInterventionsIecMaterialsDistributed(String otherInterventionsIecMaterialsDistributed) {
+            this.otherInterventionsIecMaterialsDistributed = otherInterventionsIecMaterialsDistributed;
+        }
+
+        public String getNumberAudioVisualsDistributed() {
+            return numberAudioVisualsDistributed;
+        }
+
+        public void setNumberAudioVisualsDistributed(String numberAudioVisualsDistributed) {
+            this.numberAudioVisualsDistributed = numberAudioVisualsDistributed;
+        }
+
+        public String getNumberAudioDistributed() {
+            return numberAudioDistributed;
+        }
+
+        public void setNumberAudioDistributed(String numberAudioDistributed) {
+            this.numberAudioDistributed = numberAudioDistributed;
+        }
+
+        public String getNumberPrintMaterialsDistributed() {
+            return numberPrintMaterialsDistributed;
+        }
+
+        public void setNumberPrintMaterialsDistributed(String numberPrintMaterialsDistributed) {
+            this.numberPrintMaterialsDistributed = numberPrintMaterialsDistributed;
+        }
+
+        public String getPmtctIecMaterialsDistributed() {
+            return pmtctIecMaterialsDistributed;
+        }
+
+        public void setPmtctIecMaterialsDistributed(String pmtctIecMaterialsDistributed) {
+            this.pmtctIecMaterialsDistributed = pmtctIecMaterialsDistributed;
+        }
+
+        public String getNumberPmtctAudioVisualsDistributedMale() {
+            return numberPmtctAudioVisualsDistributedMale;
+        }
+
+        public void setNumberPmtctAudioVisualsDistributedMale(String numberPmtctAudioVisualsDistributedMale) {
+            this.numberPmtctAudioVisualsDistributedMale = numberPmtctAudioVisualsDistributedMale;
+        }
+
+        public String getNumberPmtctAudioVisualsDistributedFemale() {
+            return numberPmtctAudioVisualsDistributedFemale;
+        }
+
+        public void setNumberPmtctAudioVisualsDistributedFemale(String numberPmtctAudioVisualsDistributedFemale) {
+            this.numberPmtctAudioVisualsDistributedFemale = numberPmtctAudioVisualsDistributedFemale;
+        }
+
+        public String getNumberPmtctAudioDistributedMale() {
+            return numberPmtctAudioDistributedMale;
+        }
+
+        public void setNumberPmtctAudioDistributedMale(String numberPmtctAudioDistributedMale) {
+            this.numberPmtctAudioDistributedMale = numberPmtctAudioDistributedMale;
+        }
+
+        public String getNumberPmtctAudioDistributedFemale() {
+            return numberPmtctAudioDistributedFemale;
+        }
+
+        public void setNumberPmtctAudioDistributedFemale(String numberPmtctAudioDistributedFemale) {
+            this.numberPmtctAudioDistributedFemale = numberPmtctAudioDistributedFemale;
+        }
+
+        public String getNumberPmtctPrintMaterialsDistributedMale() {
+            return numberPmtctPrintMaterialsDistributedMale;
+        }
+
+        public void setNumberPmtctPrintMaterialsDistributedMale(String numberPmtctPrintMaterialsDistributedMale) {
+            this.numberPmtctPrintMaterialsDistributedMale = numberPmtctPrintMaterialsDistributedMale;
+        }
+
+        public String getNumberPmtctPrintMaterialsDistributedFemale() {
+            return numberPmtctPrintMaterialsDistributedFemale;
+        }
+
+        public void setNumberPmtctPrintMaterialsDistributedFemale(String numberPmtctPrintMaterialsDistributedFemale) {
+            this.numberPmtctPrintMaterialsDistributedFemale = numberPmtctPrintMaterialsDistributedFemale;
+        }
     }
 }
