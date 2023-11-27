@@ -31,13 +31,23 @@ public interface Constants {
 
     interface FORMS {
         String SBC_ENROLLMENT = "sbc_enrollment";
+
+        String SBC_HIV_STATUS = "sbc_hiv_status";
+
         String SBC_ACTIVITY = "sbc_activity";
+
         String SBC_HEALTH_EDUCATION = "sbc_health_education";
+
         String SBC_HEALTH_EDUCATION_ON_HIV = "sbc_health_education_hiv_intervention";
+
         String HEALTH_EDUCATION_SBC_MATERIALS = "sbc_health_education_hiv_materials";
+
         String SBC_SERVICE_SURVEY = "sbc_service_survey";
+
         String SBC_ART_CONDOM_EDUCATION = "sbc_art_condom_education";
+
         String SBC_COMMENTS = "sbc_comments";
+
         String SBC_MOBILIZATION_SESSION= "sbc_health_education_mobilization";
 
         String SBC_MONTHLY_SOCIAL_MEDIA_REPORT= "sbc_monthly_social_media_report";
