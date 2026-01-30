@@ -42,6 +42,10 @@ subprojects {
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'
 
+    configurations.configureEach {
+        resolutionStrategy.force 'net.zetetic:sqlcipher-android:4.5.4'
+    }
+
     repositories {
         google()
         jcenter()
