@@ -63,6 +63,7 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:4.2.2'
@@ -73,12 +74,13 @@ buildscript {
 allprojects {
     repositories {
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        mavenCentral()
         mavenLocal()
     }
 }
 
 dependencies {
-    implementation('org.smartregister:opensrp-client-core:1.11.5-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-core:1.18.0-MOH-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'com.github.bmelnychuk', module: 'atv'
         exclude group: 'com.google.guava', module: 'guava'
@@ -88,19 +90,28 @@ dependencies {
         exclude group: 'com.github.johnkil.print', module: 'print'
         exclude group: 'org.apache.httpcomponents', module: 'httpmime'
     }
+    implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
+    // https://mvnrepository.com/artifact/id.zelory/compressor
+    implementation group: 'id.zelory', name: 'compressor', version: '3.0.1'
+    implementation 'net.zetetic:sqlcipher-android:4.5.4'
 
-    implementation('org.smartregister:opensrp-client-native-form:1.9.1-SNAPSHOT@aar') {
+    implementation('org.smartregister:opensrp-client-native-form:3.1.8-NACP-SNAPSHOT') {
         transitive = true
         exclude group: 'com.android.support', module: 'recyclerview-v7'
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'cardview-v7'
+        exclude group: 'io.ona.CircleProgressbar', module: 'lib'
+        exclude group: 'id.zelory', module: 'compressor'
+        exclude group: 'com.google.guava', module: 'guava'
     }
 
+    implementation 'com.emredavarci:circleprogressbar:1.0.8-SNAPSHOT'
     implementation('org.smartregister:opensrp-client-configurable-views:1.1.5-SNAPSHOT@aar') {
         transitive = true
         exclude group: 'org.smartregister', module: 'opensrp-client-core'
         exclude group: 'org.smartregister', module: 'opensrp-client-native-form'
         exclude group: 'com.android.support', module: 'appcompat-v7'
+        exclude group: 'com.google.guava', module: 'guava'
     }
     implementation project(':opensrp-chw-sbc')
 
@@ -113,7 +124,7 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    testImplementation 'junit:junit:4.13'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
 }
