@@ -3,7 +3,7 @@ package org.smartregister.chw.sbc.repository;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import net.sqlcipher.database.SQLiteDatabase;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.greenrobot.eventbus.EventBus;
@@ -383,7 +383,7 @@ public class VisitRepository extends BaseRepository {
 
     public String getLastInteractedWithAndVisitNotDone(String baseEntityID, String dateColumn) {
         SQLiteDatabase database = getReadableDatabase();
-        net.sqlcipher.Cursor cursor = null;
+        Cursor cursor = null;
         try {
             if (database == null) {
                 return null;

@@ -1,14 +1,51 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+def loadGithubProperties() {
+    def props = new Properties()
+    def propsFile = file("github.properties")
+    if (propsFile.exists()) {
+        props.load(new FileInputStream(propsFile))
+    }
+    if (!props['gpr.usr'] && System.getenv("GPR_USER")) {
+        props['gpr.usr'] = System.getenv("GPR_USER")
+    }
+    if (!props['gpr.key'] && System.getenv("GPR_API_KEY")) {
+        props['gpr.key'] = System.getenv("GPR_API_KEY")
+    }
+    return props
+}
+
+ext.githubProperties = loadGithubProperties()
+
 buildscript {
+    // Load GitHub credentials early so the buildscript classpath repositories can authenticate
+    def gprProps = new Properties()
+    def gprFile = file("github.properties")
+    if (gprFile.exists()) {
+        gprProps.load(new FileInputStream(gprFile))
+    }
+    if (!gprProps['gpr.usr'] && System.getenv("GPR_USER")) {
+        gprProps['gpr.usr'] = System.getenv("GPR_USER")
+    }
+    if (!gprProps['gpr.key'] && System.getenv("GPR_API_KEY")) {
+        gprProps['gpr.key'] = System.getenv("GPR_API_KEY")
+    }
+
     repositories {
         google()
         jcenter()
         mavenCentral()
+        maven {
+            url = uri("https://maven.pkg.github.com/OpenSRP/opensrp-client-core")
+            credentials {
+                username = gprProps['gpr.usr'] ?: System.getenv("GPR_USER")
+                password = gprProps['gpr.key'] ?: System.getenv("GPR_API_KEY")
+            }
+        }
     }
 
     dependencies {
         classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.11.0"
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:4.2.2'
     }
 }
 
@@ -33,7 +70,7 @@ subprojects {
 
     group = 'org.smartregister'
 
-    ext.androidToolsBuildGradle     = '3.1.4'
+    ext.androidToolsBuildGradle     = '4.2.2'
     ext.androidBuildToolsVersion    = '28.0.3'
     ext.androidMinSdkVersion        = 18
     ext.androidCompileSdkVersion    = 28
@@ -41,6 +78,20 @@ subprojects {
 
     ext.androidAnnotationsVersion = '3.0.1'
     ext.androidAnnotationsAPIVersion = '3.0.1'
+
+    configurations.configureEach {
+        // Ensure the SQLCipher artifact with the net.zetetic.database package is used everywhere
+        resolutionStrategy.force 'net.zetetic:sqlcipher-android:4.5.4'
+        // Keep appcompat on a compileSdk 28-friendly version to satisfy AAR metadata checks
+        resolutionStrategy.force(
+                'androidx.appcompat:appcompat:1.2.0',
+                'androidx.appcompat:appcompat-resources:1.2.0'
+        )
+        // Replace android-database-sqlcipher coordinates with the package-compatible sqlcipher-android
+        resolutionStrategy.dependencySubstitution {
+            substitute module('net.zetetic:android-database-sqlcipher') with module('net.zetetic:sqlcipher-android:4.5.4')
+        }
+    }
 
     repositories {
         google()
@@ -52,6 +103,20 @@ subprojects {
         maven { url "https://cloudant.github.io/cloudant-sync-eap/repository" }
         maven { url "https://s3.amazonaws.com/repo.commonsware.com" }
         mavenLocal()
+        maven {
+            url = uri("https://maven.pkg.github.com/Digital-Square-Tanzania/opensrp-client-core")
+            credentials {
+                username = githubProperties['gpr.usr'] ?: System.getenv("GPR_USER")
+                password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
+            }
+        }
+        maven {
+            url = uri("https://maven.pkg.github.com/OpenSRP/opensrp-client-core")
+            credentials {
+                username = githubProperties['gpr.usr'] ?: System.getenv("GPR_USER")
+                password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
+            }
+        }
     }
 
     // Improve build server performance by allowing disabling of pre-dexing

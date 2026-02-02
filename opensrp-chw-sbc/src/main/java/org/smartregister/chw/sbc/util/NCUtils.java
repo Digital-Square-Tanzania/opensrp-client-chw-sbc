@@ -13,7 +13,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
-import net.sqlcipher.database.SQLiteDatabase;
+import net.zetetic.database.sqlcipher.SQLiteDatabase;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -318,13 +318,12 @@ public class NCUtils {
 
 
     // executed by event client processor
-    public static Visit eventToVisit(org.smartregister.domain.db.Event event) throws JSONException {
+    public static Visit eventToVisit(org.smartregister.domain.Event event) throws JSONException {
         List<String> exceptions = Arrays.asList(default_obs);
 
         Visit visit = new Visit();
         visit.setVisitId(JsonFormUtils.generateRandomUUIDString());
         visit.setBaseEntityId(event.getBaseEntityId());
-        visit.setDate(new Date());
         visit.setVisitType(event.getEventType());
         visit.setEventId(event.getEventId());
         visit.setFormSubmissionId(event.getFormSubmissionId());
@@ -332,12 +331,13 @@ public class NCUtils {
         visit.setProcessed(true);
         visit.setCreatedAt(new Date());
         visit.setUpdatedAt(new Date());
+        visit.setDate(new Date());
         Map<String, String> eventDetails = event.getDetails();
         if (eventDetails != null) visit.setVisitGroup(eventDetails.get(JsonFormUtils.HOME_VISIT_GROUP));
 
         Map<String, List<VisitDetail>> details = new HashMap<>();
         if (event.getObs() != null) {
-            for (org.smartregister.domain.db.Obs obs : event.getObs()) {
+            for (org.smartregister.domain.Obs obs : event.getObs()) {
                 if (!exceptions.contains(obs.getFormSubmissionField())) {
                     VisitDetail detail = new VisitDetail();
                     detail.setVisitDetailsId(JsonFormUtils.generateRandomUUIDString());
