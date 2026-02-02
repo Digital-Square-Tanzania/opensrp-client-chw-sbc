@@ -88,6 +88,14 @@ if (rootProject.file("github.properties").exists()) {
     githubProperties.load(new FileInputStream(rootProject.file("github.properties")))
 }
 
+// fallback for env-only setups
+if (!githubProperties['gpr.usr'] && System.getenv("GPR_USER")) {
+    githubProperties['gpr.usr'] = System.getenv("GPR_USER")
+}
+if (!githubProperties['gpr.key'] && System.getenv("GPR_API_KEY")) {
+    githubProperties['gpr.key'] = System.getenv("GPR_API_KEY")
+}
+
 def getVersionName = { ->
     return VERSION_NAME // Library version
 }
@@ -159,9 +167,26 @@ publishing {
 
 allprojects {
     repositories {
+        google()
+        jcenter()
         maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         mavenCentral()
         mavenLocal()
+        maven {
+            url = uri("https://maven.pkg.github.com/Digital-Square-Tanzania/opensrp-client-core")
+            credentials {
+                username = githubProperties['gpr.usr'] ?: System.getenv("GPR_USER")
+                password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
+            }
+        }
+        maven {
+            url = uri("https://maven.pkg.github.com/OpenSRP/opensrp-client-core")
+            credentials {
+                username = githubProperties['gpr.usr'] ?: System.getenv("GPR_USER")
+                password = githubProperties['gpr.key'] ?: System.getenv("GPR_API_KEY")
+            }
+        }
+        maven { url 'https://jitpack.io' }
     }
 }
 dependencies {
@@ -173,7 +198,7 @@ dependencies {
         exclude group: 'org.apache.httpcomponents', module: 'httpmime'
     }
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.22"))
-    implementation 'net.zetetic:sqlcipher-android:4.5.4'
+    implementation 'net.zetetic:sqlcipher-android:4.5.4@aar'
 
     implementation('org.smartregister:opensrp-client-native-form:3.1.8-NACP-SNAPSHOT') {
         transitive = true
